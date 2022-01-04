@@ -1,0 +1,18 @@
+<td class="list-entry">
+  {{log.name}}
+</td>
+<td class="list-entry">
+  <div class="w-3/4 rounded-md font-bold"
+       [ngClass]="{ 'bg-amber-400' : log.type == 0, 'bg-orange-400' : log.type == 1, 'bg-rose-400' : log.type == 2}">
+    {{logType}}
+  </div>
+</td>
+<td class="list-entry">
+  {{log.instanceId}}
+</td>
+<td class="list-entry">
+  {{log.createdAt | date: 'YYYY-MM-dd hh:mm:ssZ'}}
+</td>
+<td class="list-entry">
+  {{log.message}}
+</td>
