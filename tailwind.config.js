@@ -1,7 +1,7 @@
 module.exports = {
   mode: "jit",
   purge: {
-    enabled: true,
+    //enabled: true,
     content: ['./src/**/*.{html,ts}']
   },
   darkMode: false, // or 'media' or 'class'
@@ -10,7 +10,6 @@ module.exports = {
     fontFamily: {
       'atkinson': ['Atkinson\\ Hyperlegible', 'sans-serif'],
       'rubik': ['Rubik', 'sans-serif'],
-      //'MyFont': ['"My Font"', 'serif'] // Ensure fonts with spaces have " " surrounding it.
     },
   },
   variants: {

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Log, LogTypes} from "../../../model/log";
+import {Log} from "../../../model/log";
 
 @Component({
   selector: 'tr[app-log-list-entry]',
@@ -9,12 +9,10 @@ import {Log, LogTypes} from "../../../model/log";
 export class LogListEntryComponent implements OnInit {
 
   @Input() log: Log;
-  logType: string
   constructor() {
   }
 
   ngOnInit(): void {
-    this.logType = LogTypes[this.log.type]
   }
 
 }

@@ -3,8 +3,8 @@
 </td>
 <td class="list-entry">
   <div class="w-3/4 rounded-md font-bold"
-       [ngClass]="{ 'bg-amber-400' : log.type == 0, 'bg-orange-400' : log.type == 1, 'bg-rose-400' : log.type == 2}">
-    {{logType}}
+       [ngClass]="{ 'bg-amber-400' : log.type == 'Trace', 'bg-orange-400' : log.type == 'Warning', 'bg-rose-400' : log.type == 'Error'}">
+    {{log.type}}
   </div>
 </td>
 <td class="list-entry">

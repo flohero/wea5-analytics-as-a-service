@@ -18,14 +18,6 @@ export class LogService {
 
   findLogs(): Observable<Array<Log>> {
     return this.client.get<any>(`${environment.url}/logs?count=${this.count}&offset=${this.page}`)
-      .pipe(map(res => res['items']))
-      .pipe(map(items => {
-        return items.map(LogService.mapToLog)
-      }));
-  }
-
-  private static mapToLog(item: any): Log {
-    item.createdAt = new Date(item.createdAt);
-    return item;
+      .pipe(map(res => res['items']));
   }
 }
