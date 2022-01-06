@@ -10,13 +10,21 @@ body {
 }
 
 .link-animation {
-  background-image: linear-gradient(transparent 90%, currentColor 60%);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding-bottom: 0.2em;
+  background-image: linear-gradient(transparent 90%, currentColor 40%);
   background-repeat: no-repeat;
   background-size: 0;
+  background-position: center;
   transition: all 0.3s;
 }
 
 .link-animation:hover {
-  background-size: 1em;
+  color: currentColor;
+  background-size: 100%;
+  cursor: pointer;
+  outline: none;
 }
 
