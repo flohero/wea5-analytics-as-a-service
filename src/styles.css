@@ -28,3 +28,7 @@ body {
   outline: none;
 }
 
+.input {
+  @apply border-b-2 border-gray-200 focus:border-indigo-600 focus-visible:border-indigo-600 focus-visible:outline-none;
+}
+

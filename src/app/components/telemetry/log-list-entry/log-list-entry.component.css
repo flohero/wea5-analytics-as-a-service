@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .list-entry {
-  @apply border-b border-gray-100 pt-4 pb-4 text-gray-700 text-center;
+  @apply text-gray-700 text-center;
 }

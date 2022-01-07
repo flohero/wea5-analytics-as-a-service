@@ -12,12 +12,8 @@ export class LogService {
   constructor(private client: HttpClient) {
   }
 
-  private readonly count = `100`;
-
-  private readonly page = `0`;
-
-  findLogs(): Observable<Array<Log>> {
-    return this.client.get<any>(`${environment.url}/logs?count=${this.count}&offset=${this.page}`)
+  findLogs(logCount: number = 100, page: number = 0, name: string = ''): Observable<Array<Log>> {
+    return this.client.get<any>(`${environment.url}/logs?count=${logCount}&offset=${page}&searchText=${name}`)
       .pipe(map(res => res['items']));
   }
 }

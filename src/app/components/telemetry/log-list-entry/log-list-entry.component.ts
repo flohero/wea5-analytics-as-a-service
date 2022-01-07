@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Log} from "../../../model/log";
 
 @Component({
-  selector: 'tr[app-log-list-entry]',
+  selector: 'div[app-log-list-entry]',
   templateUrl: './log-list-entry.component.html',
   styleUrls: ['./log-list-entry.component.css']
 })
