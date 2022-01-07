@@ -15,7 +15,7 @@ export class LogListComponent implements OnInit {
   filterForm: FormGroup
   loading: boolean = true
 
-  page: number
+  page: number = 0
   private readonly defaultLogCount = 25
 
 
@@ -28,19 +28,19 @@ export class LogListComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true
     this.route.queryParams.subscribe(params => {
-      this.page = params['page']
+      this.page = parseInt(params['page'])
       this.filterForm = new FormGroup({
         logCount: new FormControl(params['logCount'] ?? this.defaultLogCount),
         name: new FormControl(params['name']),
       });
     })
-    this.applyFilter(true)
+    this.applyFilter(false)
     this.loading = false
   }
 
   applyFilter(resetPage: boolean = false) {
     this.loading = true
-    if(!resetPage) {
+    if(resetPage) {
       this.page = 0
     }
     const filterValues = this.filterForm.value;
@@ -51,15 +51,27 @@ export class LogListComponent implements OnInit {
   }
 
   nextPage() {
-    this.page++
-    this.applyFilter(true)
+    if(this.hasNextPage()) {
+      this.page++
+      this.applyFilter(false)
+      this.updateRoute()
+    }
   }
 
   previousPage() {
-    if(this.page > 0) {
+    if(this.hasPreviousPage()) {
       this.page--
-      this.applyFilter(true)
+      this.applyFilter(false)
+      this.updateRoute()
     }
+  }
+
+  hasPreviousPage() {
+    return this.page > 0;
+  }
+
+  hasNextPage(): boolean {
+    return this.logs?.length >= this.filterForm.value.logCount
   }
 
   private updateRoute() {
@@ -70,7 +82,7 @@ export class LogListComponent implements OnInit {
         relativeTo: this.route,
         queryParams: {
           'logCount': filterValues.logCount,
-          'page': 0,
+          'page': this.page,
           'name': filterValues.name
         }
       }
