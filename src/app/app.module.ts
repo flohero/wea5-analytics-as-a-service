@@ -12,7 +12,7 @@ import {
 import {MetricGraphComponent} from './components/telemetry/graphs/metric-graph/metric-graph.component';
 import {LogListComponent} from './components/telemetry/log-list/log-list.component';
 import {LogListEntryComponent} from './components/telemetry/log-list-entry/log-list-entry.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ButtonComponent } from './components/button/button.component';
 
 @NgModule({
@@ -26,12 +26,13 @@ import { ButtonComponent } from './components/button/button.component';
     LogListEntryComponent,
     ButtonComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

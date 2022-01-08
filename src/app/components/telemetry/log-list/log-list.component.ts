@@ -3,6 +3,7 @@ import {Log} from "../../../model/log";
 import {LogService} from "../../../services/log.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
+import {LogType} from "../../../model/logType";
 
 @Component({
   selector: 'app-log-list',
@@ -12,46 +13,56 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class LogListComponent implements OnInit {
 
   logs: Array<Log>;
+  names: Array<string>
   filterForm: FormGroup
-  loading: boolean = true
+  logTypes = LogType
 
   page: number = 0
-  private readonly defaultLogCount = 25
-
+  loading: boolean = true
+  logCount: number
 
   constructor(private logService: LogService,
               private router: Router,
               private route: ActivatedRoute) {
   }
 
-
   ngOnInit(): void {
     this.loading = true
     this.route.queryParams.subscribe(params => {
-      this.page = parseInt(params['page'])
+      this.page = parseInt(params['page'] ?? 0)
+      this.logCount = parseInt(params['logCount'] ?? 25)
       this.filterForm = new FormGroup({
-        logCount: new FormControl(params['logCount'] ?? this.defaultLogCount),
         name: new FormControl(params['name']),
+        logType: new FormControl(params['logType']),
+        from: new FormControl(params['from']),
+        to: new FormControl(params['to']),
       });
     })
     this.applyFilter(false)
+    this.logService.findDistinctNames().subscribe(res => this.names = res)
     this.loading = false
   }
 
   applyFilter(resetPage: boolean = false) {
     this.loading = true
-    if(resetPage) {
+    if (resetPage) {
       this.page = 0
     }
     const filterValues = this.filterForm.value;
-    this.logService.findLogs(filterValues.logCount ?? 100, this.page ?? 0, filterValues.name ?? '')
-      .subscribe(res => this.logs = res);
+    this.logService.findLogs(
+      this.logCount,
+      this.page ?? 0,
+      filterValues.name ?? '',
+      filterValues.logType,
+      filterValues.from,
+      filterValues.to
+    ).subscribe(res => this.logs = res);
     this.updateRoute()
     this.loading = false
   }
 
   nextPage() {
-    if(this.hasNextPage()) {
+    if (this.hasNextPage()) {
       this.page++
       this.applyFilter(false)
       this.updateRoute()
@@ -59,19 +70,19 @@ export class LogListComponent implements OnInit {
   }
 
   previousPage() {
-    if(this.hasPreviousPage()) {
+    if (this.hasPreviousPage()) {
       this.page--
       this.applyFilter(false)
       this.updateRoute()
     }
   }
 
-  hasPreviousPage() {
+  hasPreviousPage(): boolean {
     return this.page > 0;
   }
 
   hasNextPage(): boolean {
-    return this.logs?.length >= this.filterForm.value.logCount
+    return this.logs?.length >= this.logCount
   }
 
   private updateRoute() {
@@ -81,9 +92,12 @@ export class LogListComponent implements OnInit {
       {
         relativeTo: this.route,
         queryParams: {
-          'logCount': filterValues.logCount,
+          'logCount': this.logCount,
           'page': this.page,
-          'name': filterValues.name
+          'name': filterValues.name,
+          'logType': filterValues.logType,
+          'from': filterValues.from,
+          'to': filterValues.to,
         }
       }
     )

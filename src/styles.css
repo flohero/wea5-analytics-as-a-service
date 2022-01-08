@@ -10,27 +10,31 @@ body {
   @apply font-atkinson
 }
 
-.link-animation {
-  text-decoration: none;
-  text-transform: uppercase;
-  font-weight: bold;
+.link-animation, .input, .select {
   padding-bottom: 0.2em;
-  background-image: linear-gradient(transparent 90%, currentColor 40%);
+  background-image: linear-gradient(transparent 95%, currentColor 45%);
   background-repeat: no-repeat;
   background-size: 0;
   background-position: center;
   transition: all 0.3s;
 }
 
-.link-animation:hover {
+.link-animation:hover, .input:focus, select:focus {
   color: currentColor;
   background-size: 100%;
   cursor: pointer;
   outline: none;
 }
 
-.input {
-  @apply border-b-2 border-gray-200 focus:border-indigo-600 focus-visible:border-indigo-600 focus-visible:outline-none;
+.input, .select {
+  @apply border-b-2 border-gray-200 focus-visible:border-indigo-600 focus-visible:outline-none;
+}
+
+.select {
+  @apply bg-white;
+  @apply py-1 px-2;
+  cursor: pointer;
+  background-image: linear-gradient(transparent 92%, currentColor 45%);
 }
 
 .mono {

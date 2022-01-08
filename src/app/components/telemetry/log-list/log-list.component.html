@@ -1,6 +1,7 @@
 <h1 class="text-center text-3xl mb-3">Logs</h1>
 <div class="mb-3 flex justify-center">
-  <form [formGroup]="filterForm" (ngSubmit)="applyFilter(true)" class="flex flex-col md:flex-row justify-center">
+  <form [formGroup]="filterForm" (ngSubmit)="applyFilter(true)"
+        class="flex flex-wrap flex-col md:flex-row justify-center">
     <div class="flex flex-row justify-between md:block m-1">
       <label for="name" class="mr-4 inline-block">Name: </label>
       <input type="text"
@@ -12,22 +13,40 @@
              placeholder="Log Name"
       >
       <datalist id="names">
+        <option *ngFor="let name of names">{{name}}</option>
       </datalist>
     </div>
     <div class="flex flex-row justify-between md:block m-1">
-      <label for="logCount" class="mr-2 inline-block">Log Count: </label>
-      <input type="number"
-             formControlName="logCount"
-             name="logCount"
+      <label for="from" class="mr-4 inline-block">From: </label>
+      <input type="datetime-local"
+             formControlName="from"
              class="input md:mr-4 inline-block"
-             id="logCount"
-             placeholder="Log Count">
+             id="from"
+      >
     </div>
-    <app-button class="md:block inline-block flex justify-center" buttonTitle="Filter"></app-button>
+    <div class="flex flex-row justify-between md:block m-1">
+      <label for="to" class="mr-4 inline-block">To: </label>
+      <input type="datetime-local"
+             formControlName="to"
+             name="to"
+             class="input md:mr-4 inline-block"
+             id="to"
+      >
+    </div>
+    <div class="flex flex-row justify-between md:block m-1">
+      <label for="logType" class="mr-2 inline-block">Log Type: </label>
+      <select type="number"
+              formControlName="logType"
+              name="logCount"
+              class="md:mr-4 inline-block select"
+              id="logType">
+        <option *ngFor="let logType of logTypes | keyvalue" value="{{logType.key}}">{{logType.value}}</option>
+        <option value="">None</option>
+      </select>
+    </div>
+    <app-button class="md:block inline-block flex justify-center my-auto" buttonTitle="Filter"></app-button>
   </form>
 </div>
-
-
 <div class="w-full grid gap-4 md:grid-cols-5 md:grid-rows-none grid-rows-5 border-b pb-2 mb-4">
   <div class="text-center">Name</div>
   <div class="text-center">Type</div>
@@ -37,6 +56,9 @@
 </div>
 <div app-log-list-entry *ngFor="let entry of logs" [log]="entry"
      class="rounded hover:bg-gray-200 inline-grid md:grid-cols-5 md:grid-rows-none py-4 grid-rows-5 gap-4 w-full border-b border-gray-100">
+</div>
+<div *ngIf="!logs || logs.length == 0 && !loading" class="w-full text-center text-2xl mb-3">
+  <h2>No entries found</h2>
 </div>
 <div class="flex justify-center h-96" *ngIf="loading">
   <svg class="h-20 w-20 mt-48 text-indigo-600 bg-white" viewBox="0 0 100 100">
@@ -48,6 +70,7 @@
   </svg>
 </div>
 <div class="flex justify-center mt-4 text-indigo-600">
+  <div class="grow"></div>
   <button (click)="previousPage()" [disabled]="!hasPreviousPage()" [ngClass]="{'opacity-0' : !hasPreviousPage()}">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
@@ -59,5 +82,17 @@
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
     </svg>
   </button>
+  <div class="grow">
+    <select type="number"
+            name="logCount"
+            class="block ml-auto"
+            [(ngModel)]="logCount"
+            (change)="applyFilter(false)">
+      <option value="25">25</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+      <option value="1000">1000</option>
+    </select>
+  </div>
 </div>
 
