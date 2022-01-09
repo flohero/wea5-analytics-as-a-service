@@ -16,6 +16,10 @@ const routes: Routes = [
   {
     path: "logs",
     component: LogListComponent
+  },
+  {
+    path: 'relations',
+    component: RelationshipGraphComponent
   }
 ];
 

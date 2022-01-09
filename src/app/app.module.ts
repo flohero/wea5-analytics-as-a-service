@@ -14,6 +14,8 @@ import {LogListComponent} from './components/telemetry/log-list/log-list.compone
 import {LogListEntryComponent} from './components/telemetry/log-list-entry/log-list-entry.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ButtonComponent } from './components/button/button.component';
+import {NgChartsModule} from "ng2-charts";
+import { GraphDashboardComponent } from './components/telemetry/graphs/graph-dashboard/graph-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -25,13 +27,15 @@ import { ButtonComponent } from './components/button/button.component';
     LogListComponent,
     LogListEntryComponent,
     ButtonComponent,
+    GraphDashboardComponent,
   ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        NgChartsModule
     ],
   providers: [],
   bootstrap: [AppComponent]
