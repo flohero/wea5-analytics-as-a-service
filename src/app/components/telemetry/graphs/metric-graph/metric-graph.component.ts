@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MetricService} from "../../../../services/metric.service";
+import {ChartType} from "chart.js";
 
 
 @Component({
@@ -9,7 +10,8 @@ import {MetricService} from "../../../../services/metric.service";
 })
 export class MetricGraphComponent implements OnInit {
 
-  barChartOptions = {
+  @Input() metricName: string
+  chartOptions = {
     scaleShowVerticalLines: false,
     responsive: true,
     scales: {
@@ -21,21 +23,22 @@ export class MetricGraphComponent implements OnInit {
       }
     }
   };
-  barChartLabels: Array<string> = [];
-  barChartLegend = true;
-  barChartData: any = []
+  chartType: ChartType = 'line'
+  labels: Array<string> = [];
+  legend = true;
+  data: any = []
 
   constructor(private metricService: MetricService) {
   }
 
   ngOnInit() {
-    this.metricService.findMetrics('agent.ping.count')
+    this.metricService.findMetrics(this.metricName, 10)
       .subscribe(metrics => {
-        this.barChartLabels = metrics.map(metric => new Date(metric.createdAt).toISOString().substring(0, 19));
-        this.barChartData = [
+        this.labels = metrics.map(metric => new Date(metric.createdAt).toISOString().substring(0, 19));
+        this.data = [
           {
             data: metrics.map(metric => metric.value),
-            label: 'agent.png.roundtriptime'
+            label: this.metricName
           }
         ]
       })
