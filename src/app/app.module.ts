@@ -6,28 +6,30 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {NavbarItemComponent} from './components/navbar-item/navbar-item.component';
-import {
-  RelationshipGraphComponent
-} from './components/telemetry/graphs/relationship-graph/relationship-graph.component';
-import {MetricGraphComponent} from './components/telemetry/graphs/metric-graph/metric-graph.component';
+import {MetricGraphComponent} from './components/telemetry/metric-graph/metric-graph.component';
 import {LogListComponent} from './components/telemetry/log-list/log-list.component';
 import {LogListEntryComponent} from './components/telemetry/log-list-entry/log-list-entry.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ButtonComponent } from './components/button/button.component';
 import {NgChartsModule} from "ng2-charts";
-import { GraphDashboardComponent } from './components/telemetry/graphs/graph-dashboard/graph-dashboard.component';
+import { GraphDashboardComponent } from './components/telemetry/graph-dashboard/graph-dashboard.component';
+import { GraphDialogComponent } from './components/telemetry/graph-dialog/graph-dialog.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { FilterComponent } from './components/filter/filter.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     NavbarItemComponent,
-    RelationshipGraphComponent,
     MetricGraphComponent,
     LogListComponent,
     LogListEntryComponent,
     ButtonComponent,
     GraphDashboardComponent,
+    GraphDialogComponent,
+    ModalComponent,
+    FilterComponent,
   ],
     imports: [
         BrowserModule,

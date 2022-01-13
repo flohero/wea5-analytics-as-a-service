@@ -1,3 +1,6 @@
 <div class="grid grid-cols-1 md:grid-cols-2 auto-rows-auto gap-4">
   <app-metric-graph *ngFor="let chart of charts" [metricName]="chart.name"></app-metric-graph>
 </div>
+<app-modal title="Add Graph">
+  <app-filter></app-filter>
+</app-modal>

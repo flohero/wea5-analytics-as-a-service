@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MetricService} from "../../../../services/metric.service";
+import {MetricService} from "../../../services/metric.service";
 import {ChartType} from "chart.js";
 
 

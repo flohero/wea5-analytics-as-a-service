@@ -13,15 +13,21 @@ export class LogService {
   constructor(private client: HttpClient) {
   }
 
-  findLogs(logCount: number = 100,
-           page: number = 0,
-           name: string = '',
-           logType: LogType | null = null,
-           from: Date,
-           to: Date
+  findLogs(logCount: number,
+           page: number,
+           name: string,
+           logType: LogType | string | null,
+           from: Date | null,
+           to: Date | null
   ): Observable<Array<Log>> {
-    return this.client.get<any>(`${environment.url}/logs?count=${logCount}&offset=${page}&searchText=${name}&type=${logType ?? ''}&from=${from ?? ''}&to=${to ?? ''}`)
-      .pipe(map(res => res['items']));
+    return this.client.get<any>(`${environment.url}/logs?
+count=${logCount}
+&offset=${page}
+&searchText=${name}
+&type=${logType ?? ''}
+&from=${from ?? ''}
+&to=${to ?? ''}`
+    ).pipe(map(res => res['items']));
   }
 
   findDistinctNames(): Observable<Array<string>> {

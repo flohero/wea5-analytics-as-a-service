@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {StorageService} from "../../../../services/storage.service";
-import {MetricFilter} from "../../../../model/metricFilter";
+import {StorageService} from "../../../services/storage.service";
+import {MetricFilter} from "../../../model/metricFilter";
 
 @Component({
   selector: 'app-graph-dashboard',
@@ -20,13 +20,17 @@ export class GraphDashboardComponent implements OnInit {
         from: null,
         to: null,
         name: 'agent.ping.roundtriptime',
-        count: 10
+        count: 10,
+        page: 0,
+        type: ''
       },
       {
         from: null,
         to: null,
         name: 'agent.ping.count',
-        count: 10
+        count: 10,
+        page: 0,
+        type: ''
       }
     )
   }

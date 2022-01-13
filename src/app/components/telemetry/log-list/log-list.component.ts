@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Log} from "../../../model/log";
 import {LogService} from "../../../services/log.service";
-import {FormControl, FormGroup} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
 import {LogType} from "../../../model/logType";
+import {MetricFilter} from "../../../model/metricFilter";
+import {FilterRoutingService} from "../../../services/filter-routing.service";
 
 @Component({
   selector: 'app-log-list',
@@ -14,93 +14,70 @@ export class LogListComponent implements OnInit {
 
   logs: Array<Log>;
   names: Array<string>
-  filterForm: FormGroup
   logTypes = LogType
+  filter: MetricFilter
 
-  page: number = 0
   loading: boolean = true
-  logCount: number
 
   constructor(private logService: LogService,
-              private router: Router,
-              private route: ActivatedRoute) {
+              private filterRoutingService: FilterRoutingService) {
   }
 
   ngOnInit(): void {
     this.loading = true
-    this.route.queryParams.subscribe(params => {
-      this.page = parseInt(params['page'] ?? 0)
-      this.logCount = parseInt(params['logCount'] ?? 25)
-      this.filterForm = new FormGroup({
-        name: new FormControl(params['name']),
-        logType: new FormControl(params['logType']),
-        from: new FormControl(params['from']),
-        to: new FormControl(params['to']),
-      });
-    })
-    this.applyFilter(false)
-    this.logService.findDistinctNames().subscribe(res => this.names = res)
-    this.loading = false
+    this.filterRoutingService.routeToFilter()
+      .subscribe(filter => {
+        this.filter = filter
+        if (this.filter.page == null) {
+          this.filter.page = 0;
+        }
+        this.applyFilter(this.filter)
+        this.logService.findDistinctNames().subscribe(res => this.names = res)
+        this.loading = false
+      })
   }
 
-  applyFilter(resetPage: boolean = false) {
+  applyFilter(filter: MetricFilter | null) {
     this.loading = true
-    if (resetPage) {
-      this.page = 0
-    }
-    const filterValues = this.filterForm.value;
+    this.filter = filter ?? this.filter
+
     this.logService.findLogs(
-      this.logCount,
-      this.page ?? 0,
-      filterValues.name ?? '',
-      filterValues.logType,
-      filterValues.from,
-      filterValues.to
+      this.filter.count,
+      this.filter.page,
+      this.filter.name ?? '',
+      this.filter.type,
+      this.filter.from,
+      this.filter.to
     ).subscribe(res => this.logs = res);
     this.updateRoute()
     this.loading = false
   }
 
   nextPage() {
+    console.log(this.filter)
     if (this.hasNextPage()) {
-      this.page++
-      this.applyFilter(false)
-      this.updateRoute()
+      this.filter.page++
+      this.applyFilter(null)
     }
   }
 
   previousPage() {
     if (this.hasPreviousPage()) {
-      this.page--
-      this.applyFilter(false)
-      this.updateRoute()
+      this.filter.page--
+      this.applyFilter(null)
     }
   }
 
   hasPreviousPage(): boolean {
-    return this.page > 0;
+    return this.filter.page != null && this.filter.page > 0;
   }
 
   hasNextPage(): boolean {
-    return this.logs?.length >= this.logCount
+    return this.filter.count != null && this.logs?.length >= this.filter.count
   }
 
   private updateRoute() {
-    const filterValues = this.filterForm.value;
-    this.router.navigate(
-      [],
-      {
-        relativeTo: this.route,
-        queryParams: {
-          'logCount': this.logCount,
-          'page': this.page,
-          'name': filterValues.name,
-          'logType': filterValues.logType,
-          'from': filterValues.from,
-          'to': filterValues.to,
-        }
-      }
-    )
+    this.filterRoutingService.filterToRoute(this.filter)
   }
 
 }

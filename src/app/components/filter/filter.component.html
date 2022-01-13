@@ -1,0 +1,46 @@
+<form [formGroup]="filterForm" (ngSubmit)="submit()"
+      class="flex flex-wrap flex-col md:flex-row justify-center">
+  <div class="flex flex-row justify-between md:block m-1">
+    <label for="name" class="mr-4 inline-block">Name: </label>
+    <input type="text"
+           formControlName="name"
+           name="name"
+           class="input md:mr-4 inline-block"
+           id="name"
+           list="names"
+           placeholder="Name"
+    >
+    <datalist id="names">
+      <option *ngFor="let name of names">{{name}}</option>
+    </datalist>
+  </div>
+  <div class="flex flex-row justify-between md:block m-1">
+    <label for="from" class="mr-4 inline-block">From: </label>
+    <input type="datetime-local"
+           formControlName="from"
+           class="input md:mr-4 inline-block"
+           id="from"
+    >
+  </div>
+  <div class="flex flex-row justify-between md:block m-1">
+    <label for="to" class="mr-4 inline-block">To: </label>
+    <input type="datetime-local"
+           formControlName="to"
+           name="to"
+           class="input md:mr-4 inline-block"
+           id="to"
+    >
+  </div>
+  <div class="flex flex-row justify-between md:block m-1">
+    <label for="type" class="mr-2 inline-block">Type: </label>
+    <select type="number"
+            formControlName="type"
+            name="count"
+            class="md:mr-4 inline-block select"
+            id="type">
+      <option *ngFor="let type of types" value="{{type}}">{{type}}</option>
+      <option value="">None</option>
+    </select>
+  </div>
+  <app-button class="md:block inline-block flex justify-center my-auto" buttonTitle="Filter"></app-button>
+</form>
