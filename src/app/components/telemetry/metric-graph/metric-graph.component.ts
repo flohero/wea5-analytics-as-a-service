@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MetricService} from "../../../services/metric.service";
 import {ChartType} from "chart.js";
+import {MetricFilter} from "../../../model/metricFilter";
 
 
 @Component({
@@ -10,7 +11,7 @@ import {ChartType} from "chart.js";
 })
 export class MetricGraphComponent implements OnInit {
 
-  @Input() metricName: string
+  @Input() metricFilter: MetricFilter
   chartOptions = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -32,13 +33,13 @@ export class MetricGraphComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.metricService.findMetrics(this.metricName, 10)
+    this.metricService.findMetrics(this.metricFilter)
       .subscribe(metrics => {
         this.labels = metrics.map(metric => new Date(metric.createdAt).toISOString().substring(0, 19));
         this.data = [
           {
             data: metrics.map(metric => metric.value),
-            label: this.metricName
+            label: this.metricFilter.name
           }
         ]
       })

@@ -14,7 +14,7 @@ export class LogListComponent implements OnInit {
 
   logs: Array<Log>;
   names: Array<string>
-  logTypes = LogType
+  logTypes = Object.values(LogType)
   filter: MetricFilter
 
   loading: boolean = true
@@ -28,9 +28,6 @@ export class LogListComponent implements OnInit {
     this.filterRoutingService.routeToFilter()
       .subscribe(filter => {
         this.filter = filter
-        if (this.filter.page == null) {
-          this.filter.page = 0;
-        }
         this.applyFilter(this.filter)
         this.logService.findDistinctNames().subscribe(res => this.names = res)
         this.loading = false

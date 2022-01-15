@@ -10,15 +10,14 @@ import {MetricFilter} from "../../model/metricFilter";
 })
 export class FilterComponent implements OnInit {
 
-  @Input() names: Array<string>
+  @Input() telemetryNames: Array<string>
   @Input() types: Array<string>
+  @Input() submitTitle: string = 'Filter'
+  @Input() useSearch: boolean = true
   @Output() filterEvent: EventEmitter<MetricFilter> = new EventEmitter<MetricFilter>()
 
-
   filterForm: FormGroup
-
-  loading: boolean = true
-
+  names: Array<string> = ['hello']
 
   constructor(private route: ActivatedRoute) {
   }
@@ -27,6 +26,7 @@ export class FilterComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.filterForm = new FormGroup({
         name: new FormControl(params['name']),
+        names: new FormControl(),
         type: new FormControl(params['type']),
         from: new FormControl(params['from']),
         to: new FormControl(params['to']),
@@ -38,9 +38,10 @@ export class FilterComponent implements OnInit {
     const filterValues = this.filterForm.value;
     const metricFilter: MetricFilter = {
       name: filterValues.name,
+      names: this.names,
       from: filterValues.from,
       to: filterValues.to,
-      count: 0,
+      count: 100,
       type: filterValues.type,
       page: 0
     }
@@ -48,4 +49,17 @@ export class FilterComponent implements OnInit {
     this.filterEvent.emit(metricFilter)
   }
 
+  addName() {
+    const filterValues = this.filterForm.value;
+    this.names.push(filterValues.names)
+    this.filterForm.controls['names'].setValue('')
+  }
+
+  removeName(index: number) {
+    this.names.splice(index, 1);
+  }
+
+  removeNameByBackspace() {
+    this.filterForm.value['names'] == '' && this.removeName(this.names.length - 1,);
+  }
 }

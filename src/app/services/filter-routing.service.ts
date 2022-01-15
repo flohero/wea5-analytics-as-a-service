@@ -16,6 +16,7 @@ export class FilterRoutingService {
       'count': filter.count,
       'page': filter.page,
       'name': filter.name,
+      'names': filter.names,
       'type': filter.type,
       'to': filter.to,
       'from': filter.from
@@ -33,11 +34,12 @@ export class FilterRoutingService {
     return this.route.queryParams.pipe<MetricFilter>(map(params => {
       const filter: MetricFilter = {
         name: params['name'],
+        names: params['names'],
         type: params['type'],
         from: params['from'],
         to: params['to'],
-        page: parseInt(params['page']),
-        count: parseInt(params['count']),
+        page: parseInt(params['page'] ?? 0) ,
+        count: parseInt(params['count']?? 100),
       }
       return filter
     }))

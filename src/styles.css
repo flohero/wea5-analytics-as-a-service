@@ -12,15 +12,15 @@ body {
 
 .link-animation, .input, .select {
   padding-bottom: 0.2em;
-  background-image: linear-gradient(transparent 95%, currentColor 45%);
+  background-image: linear-gradient(transparent 95%, currentColor 5%);
   background-repeat: no-repeat;
   background-size: 0;
   background-position: center;
   transition: all 0.3s;
 }
 
-.link-animation:hover, .input:focus, select:focus {
-  color: currentColor;
+.link-animation:hover, .input:focus, .input:focus-within, .select:focus {
+  /*color: rgb(79 70 229);*/
   background-size: 100%;
   cursor: pointer;
   outline: none;

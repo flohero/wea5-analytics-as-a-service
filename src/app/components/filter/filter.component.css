@@ -1,0 +1,19 @@
+.form-filter {
+  @apply flex flex-wrap flex-col md:flex-row justify-center;
+}
+
+.input-label {
+  @apply flex flex-row justify-between md:block m-1;
+}
+
+.input-label__label {
+  @apply mr-4 inline-block;
+}
+
+.input-label__input {
+  @apply md:mr-4 inline-block;
+}
+
+.chip {
+  @apply rounded-2xl bg-indigo-600 font-bold text-white py-1 px-4 inline;
+}

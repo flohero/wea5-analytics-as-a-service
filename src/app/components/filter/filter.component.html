@@ -1,46 +1,61 @@
-<form [formGroup]="filterForm" (ngSubmit)="submit()"
-      class="flex flex-wrap flex-col md:flex-row justify-center">
-  <div class="flex flex-row justify-between md:block m-1">
-    <label for="name" class="mr-4 inline-block">Name: </label>
+<form [formGroup]="filterForm" (ngSubmit)="submit()" (keydown.enter)="$event.preventDefault()"
+      class="form-filter">
+  <div class="input-label" *ngIf="useSearch">
+    <label for="name" class="input-label__label">Name: </label>
     <input type="text"
            formControlName="name"
            name="name"
-           class="input md:mr-4 inline-block"
+           class="input input-label__input"
            id="name"
            list="names"
            placeholder="Name"
     >
     <datalist id="names">
-      <option *ngFor="let name of names">{{name}}</option>
+      <option *ngFor="let name of telemetryNames">{{name}}</option>
     </datalist>
   </div>
-  <div class="flex flex-row justify-between md:block m-1">
-    <label for="from" class="mr-4 inline-block">From: </label>
+
+  <div class="flex grow block m-1 w-full" *ngIf="!useSearch">
+    <label for="names" class="mr-4 inline-block mt-2">Metric Names: </label>
+    <div class="input flex flex-wrap text-indigo-700 pb-4">
+      <span class="chip mr-3 my-1" *ngFor="let name of names; index as i">{{name}}
+        <button class="cursor-pointer ml-1 font-bold my-auto" (click)="removeName(i)">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+          </svg>
+        </button>
+      </span>
+      <input name="names" type="text" class="focus-visible:outline-none my-1 text-black" (keydown.enter)="addName()" (keydown.backspace)="removeNameByBackspace()" formControlName="names" autofocus>
+      <hr/>
+    </div>
+  </div>
+  <div class="input-label">
+    <label for="from" class="input-label__label">From: </label>
     <input type="datetime-local"
            formControlName="from"
-           class="input md:mr-4 inline-block"
+           class="input input-label__input text-black"
            id="from"
     >
   </div>
-  <div class="flex flex-row justify-between md:block m-1">
-    <label for="to" class="mr-4 inline-block">To: </label>
+  <div class="input-label">
+    <label for="to" class="input-label__label">To: </label>
     <input type="datetime-local"
            formControlName="to"
            name="to"
-           class="input md:mr-4 inline-block"
+           class="input input-label__input"
            id="to"
     >
   </div>
-  <div class="flex flex-row justify-between md:block m-1">
-    <label for="type" class="mr-2 inline-block">Type: </label>
+  <div class="input-label">
+    <label for="type" class="input-label__label">Type: </label>
     <select type="number"
             formControlName="type"
             name="count"
-            class="md:mr-4 inline-block select"
+            class="select input-label__input"
             id="type">
       <option *ngFor="let type of types" value="{{type}}">{{type}}</option>
-      <option value="">None</option>
+      <option value="" selected>None</option>
     </select>
   </div>
-  <app-button class="md:block inline-block flex justify-center my-auto" buttonTitle="Filter"></app-button>
+  <app-button class="md:block inline-block flex justify-center my-auto" [buttonTitle]="submitTitle"></app-button>
 </form>

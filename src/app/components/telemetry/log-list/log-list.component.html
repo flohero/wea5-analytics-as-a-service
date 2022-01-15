@@ -1,6 +1,6 @@
 <h1 class="text-center text-3xl mb-3">Logs</h1>
 <div class="mb-3 flex justify-center">
-  <app-filter [types]="[]" [names]="names" (filterEvent)="applyFilter($event)"></app-filter>
+  <app-filter [types]="logTypes" [telemetryNames]="names" (filterEvent)="applyFilter($event)"></app-filter>
 </div>
 
 <div class="w-full grid gap-4 md:grid-cols-5 md:grid-rows-none grid-rows-5 border-b pb-2 mb-4">

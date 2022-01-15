@@ -20,6 +20,7 @@ export class GraphDashboardComponent implements OnInit {
         from: null,
         to: null,
         name: 'agent.ping.roundtriptime',
+        names: [],
         count: 10,
         page: 0,
         type: ''
@@ -28,11 +29,17 @@ export class GraphDashboardComponent implements OnInit {
         from: null,
         to: null,
         name: 'agent.ping.count',
+        names: [],
         count: 10,
         page: 0,
         type: ''
       }
     )
+  }
+
+  addGraph(filter: MetricFilter) {
+    filter.count = 100
+    this.charts.push(filter)
   }
 
 }
