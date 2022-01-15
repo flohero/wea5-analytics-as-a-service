@@ -1,1 +1,6 @@
-<p>graph-dialog works!</p>
+<app-filter submitTitle="Preview" (filterEvent)="addGraph($event)" [useSearch]="false"></app-filter>
+
+<app-metric-graph *ngFor="let chart of charts" [metricFilter]="chart"></app-metric-graph>
+
+<app-button buttonText="Add Graph"></app-button>
+

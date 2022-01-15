@@ -17,7 +17,7 @@ export class FilterComponent implements OnInit {
   @Output() filterEvent: EventEmitter<MetricFilter> = new EventEmitter<MetricFilter>()
 
   filterForm: FormGroup
-  names: Array<string> = ['hello']
+  names: Array<string> = []
 
   constructor(private route: ActivatedRoute) {
   }
@@ -45,7 +45,6 @@ export class FilterComponent implements OnInit {
       type: filterValues.type,
       page: 0
     }
-    console.log(metricFilter)
     this.filterEvent.emit(metricFilter)
   }
 

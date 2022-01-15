@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {StorageService} from "../../../services/storage.service";
 import {MetricFilter} from "../../../model/metricFilter";
 
@@ -19,8 +19,8 @@ export class GraphDashboardComponent implements OnInit {
       {
         from: null,
         to: null,
-        name: 'agent.ping.roundtriptime',
-        names: [],
+        name: '',
+        names: ['agent.ping.roundtriptime'],
         count: 10,
         page: 0,
         type: ''
@@ -28,8 +28,8 @@ export class GraphDashboardComponent implements OnInit {
       {
         from: null,
         to: null,
-        name: 'agent.ping.count',
-        names: [],
+        names: ['agent.ping.count'],
+        name: '',
         count: 10,
         page: 0,
         type: ''
@@ -39,7 +39,13 @@ export class GraphDashboardComponent implements OnInit {
 
   addGraph(filter: MetricFilter) {
     filter.count = 100
-    this.charts.push(filter)
+    this.storageService.set(StorageService.METRIC_CHARTS, filter)
+    this.charts = this.storageService.get<Array<MetricFilter>>(StorageService.METRIC_CHARTS) ?? []
+  }
+
+  showModal() {
+    let modal  = document.getElementById('graph-modal')
+    modal?.classList.remove('hidden')
   }
 
 }

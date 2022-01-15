@@ -1,5 +1,5 @@
 <form [formGroup]="filterForm" (ngSubmit)="submit()" (keydown.enter)="$event.preventDefault()"
-      class="form-filter">
+      class="form-filter mr-2">
   <div class="input-label" *ngIf="useSearch">
     <label for="name" class="input-label__label">Name: </label>
     <input type="text"
@@ -57,5 +57,5 @@
       <option value="" selected>None</option>
     </select>
   </div>
-  <app-button class="md:block inline-block flex justify-center my-auto" [buttonTitle]="submitTitle"></app-button>
+  <app-button class="md:block inline-block flex justify-center my-auto" [buttonText]="submitTitle"></app-button>
 </form>

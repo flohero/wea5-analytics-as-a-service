@@ -35,13 +35,15 @@ export class MetricGraphComponent implements OnInit {
   ngOnInit() {
     this.metricService.findMetrics(this.metricFilter)
       .subscribe(metrics => {
+        const grouped = this.metricService.groupByName(metrics)
         this.labels = metrics.map(metric => new Date(metric.createdAt).toISOString().substring(0, 19));
-        this.data = [
-          {
-            data: metrics.map(metric => metric.value),
-            label: this.metricFilter.name
-          }
-        ]
+        this.data = []
+        for(let key in grouped) {
+          this.data.push({
+            label: key,
+            data: grouped[key]
+          })
+        }
       })
   }
 }

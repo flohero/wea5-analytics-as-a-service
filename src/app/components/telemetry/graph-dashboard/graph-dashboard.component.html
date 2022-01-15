@@ -1,8 +1,10 @@
+<h1 class="text-center text-3xl">Metric Graphs</h1>
 <div class="grid grid-cols-1 md:grid-cols-2 auto-rows-auto gap-4">
   <app-metric-graph *ngFor="let chart of charts" [metricFilter]="chart"></app-metric-graph>
 </div>
-<app-modal title="Add Graph">
-  <app-filter submitTitle="Preview" (filterEvent)="addGraph($event)" [useSearch]="false"></app-filter>
-
-  <app-button buttonTitle="Add Graph"></app-button>
+<div class="flex flex-row">
+  <app-button [onClickFunc]="showModal" buttonText="Add Graph"></app-button>
+</div>
+<app-modal title="Add Graph" id="graph-modal" class="hidden">
+  <app-graph-dialog></app-graph-dialog>
 </app-modal>
