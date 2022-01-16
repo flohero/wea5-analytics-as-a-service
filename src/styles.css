@@ -40,3 +40,16 @@ body {
 .mono {
   font-variant-numeric: tabular-nums;
 }
+
+.button {
+  @apply border-solid
+  border-indigo-600
+  border-2
+  hover:bg-gray-100
+  text-indigo-600
+  font-bold
+  cursor-pointer
+  py-1 px-3
+  rounded-md
+  shadow;
+}

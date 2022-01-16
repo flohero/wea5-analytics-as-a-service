@@ -1,10 +1,32 @@
 <h1 class="text-center text-3xl">Metric Graphs</h1>
-<div class="grid grid-cols-1 md:grid-cols-2 auto-rows-auto gap-4">
-  <app-metric-graph *ngFor="let chart of charts" [metricFilter]="chart"></app-metric-graph>
+<div class="grid grid-cols-1 xl:grid-cols-2 auto-rows-auto gap-8 mt-7">
+  <div *ngFor="let chart of charts, index as i">
+    <div class="flex">
+      <div class="mr-2 grow-0">
+      </div>
+      <div class="grow"></div>
+      <div class="mr-2 grow-0">
+        <button (click)="removeGraph(i)">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <app-metric-graph [metricFilter]="chart"></app-metric-graph>
+    <app-modal title="Graph Details" id="graph-details-{{i}}" class="hidden">
+      <app-metric-graph [metricFilter]="chart"></app-metric-graph>
+    </app-modal>
+  </div>
+  <div *ngIf="charts.length == 0" class="col-span-2 my-8 h-full">
+    <h2 class="text-center text-2xl">Nothing here...</h2>
+    <h2 class="text-center text-2xl">Start by adding Graphs</h2>
+  </div>
 </div>
-<div class="flex flex-row">
-  <app-button [onClickFunc]="showModal" buttonText="Add Graph"></app-button>
+<div class="flex flex-row mt-4">
+  <button class="button" (click)="showModal()">Add Graph</button>
 </div>
 <app-modal title="Add Graph" id="graph-modal" class="hidden">
-  <app-graph-dialog></app-graph-dialog>
+  <app-graph-dialog class="max-h-full" (newGraphEvent)="loadGraphs($event)"></app-graph-dialog>
 </app-modal>

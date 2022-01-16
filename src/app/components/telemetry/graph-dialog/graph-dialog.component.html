@@ -1,6 +1,10 @@
-<app-filter submitTitle="Preview" (filterEvent)="addGraph($event)" [useSearch]="false"></app-filter>
+<div>
+  <app-filter submitTitle="Preview" (filterEvent)="previewGraph($event)" [useSearch]="false"
+              [telemetryNames]="names"></app-filter>
+  <div class="my-4">
+    <app-metric-graph *ngFor="let chart of charts" [metricFilter]="chart"></app-metric-graph>
 
-<app-metric-graph *ngFor="let chart of charts" [metricFilter]="chart"></app-metric-graph>
+  </div>
 
-<app-button buttonText="Add Graph"></app-button>
-
+  <button class="mt-8 button" content="Add This Graph" *ngIf="charts[0]" (click)="addGraph()">Add This Graph</button>
+</div>

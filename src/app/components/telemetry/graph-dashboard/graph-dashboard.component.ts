@@ -9,43 +9,35 @@ import {MetricFilter} from "../../../model/metricFilter";
 })
 export class GraphDashboardComponent implements OnInit {
 
+  private readonly graphModalId = 'graph-modal';
   charts: Array<MetricFilter>
 
   constructor(private storageService: StorageService) { }
 
   ngOnInit(): void {
     this.charts = this.storageService.get<Array<MetricFilter>>(StorageService.METRIC_CHARTS) ?? []
-    this.charts.push(
-      {
-        from: null,
-        to: null,
-        name: '',
-        names: ['agent.ping.roundtriptime'],
-        count: 10,
-        page: 0,
-        type: ''
-      },
-      {
-        from: null,
-        to: null,
-        names: ['agent.ping.count'],
-        name: '',
-        count: 10,
-        page: 0,
-        type: ''
-      }
-    )
   }
 
-  addGraph(filter: MetricFilter) {
-    filter.count = 100
-    this.storageService.set(StorageService.METRIC_CHARTS, filter)
-    this.charts = this.storageService.get<Array<MetricFilter>>(StorageService.METRIC_CHARTS) ?? []
+  loadGraphs(filters: MetricFilter) {
+    this.charts.push(filters)
+    this.storageService.set<Array<MetricFilter>>(StorageService.METRIC_CHARTS, this.charts)
+    const modal  = document.getElementById(this.graphModalId)
+    modal?.classList.add('hidden')
   }
+
 
   showModal() {
-    let modal  = document.getElementById('graph-modal')
+    const modal  = document.getElementById(this.graphModalId)
     modal?.classList.remove('hidden')
   }
 
+  removeGraph(i: number) {
+    this.charts.splice(i, 1)
+    this.storageService.set<Array<MetricFilter>>(StorageService.METRIC_CHARTS, this.charts)
+  }
+
+  showGraph(i: number) {
+    const modal  = document.getElementById(`graph-details-${i}`)
+    modal?.classList.remove('hidden')
+  }
 }

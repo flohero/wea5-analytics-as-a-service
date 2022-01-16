@@ -15,5 +15,5 @@
 }
 
 .chip {
-  @apply rounded-2xl bg-indigo-600 font-bold text-white py-1 px-4 inline;
+  @apply rounded-2xl bg-indigo-600 font-bold text-white py-1 px-3 inline;
 }

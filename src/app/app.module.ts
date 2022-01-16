@@ -10,7 +10,6 @@ import {MetricGraphComponent} from './components/telemetry/metric-graph/metric-g
 import {LogListComponent} from './components/telemetry/log-list/log-list.component';
 import {LogListEntryComponent} from './components/telemetry/log-list-entry/log-list-entry.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { ButtonComponent } from './components/button/button.component';
 import {NgChartsModule} from "ng2-charts";
 import { GraphDashboardComponent } from './components/telemetry/graph-dashboard/graph-dashboard.component';
 import { GraphDialogComponent } from './components/telemetry/graph-dialog/graph-dialog.component';
@@ -25,7 +24,6 @@ import { FilterComponent } from './components/filter/filter.component';
     MetricGraphComponent,
     LogListComponent,
     LogListEntryComponent,
-    ButtonComponent,
     GraphDashboardComponent,
     GraphDialogComponent,
     ModalComponent,
