@@ -18,7 +18,7 @@ export class MetricService {
   findMetrics({names, count, page, from, to}: MetricFilter): Observable<Array<Metric>> {
     const namesParam = names?.map(name => `names=${name}`).join('&') ?? ''
     return this.client.get<any>(`${environment.url}/metrics?${namesParam}&from=${from ?? ''}&to=${to ?? ''}&count=${count}&page=${page}`)
-      .pipe(map(res => res['items'].reverse()))
+      .pipe(map(res => res['items']))
   }
 
   findDistinctNames(): Observable<Array<string>> {

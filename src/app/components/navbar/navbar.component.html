@@ -1,19 +1,27 @@
 <nav class="
 font-rubik
 text-indigo-700
-text-2xl
+text-xl
 font-bold
 border-solid
 border-b
-pt-3
-pb-3
-pl-3
+py-3
+px-3
 bg-white
+text-right
 ">
-  <ul class="flex flex-row items-center padding-0">
-    <app-navbar-item route="/" text="Overview"></app-navbar-item>
-    <app-navbar-item route="/logs" text="Logs"></app-navbar-item>
-    <app-navbar-item route="/graphs" text="Graphs"></app-navbar-item>
-    <app-navbar-item route="/actions" text="Actions"></app-navbar-item>
+  <ul class="navbar">
+    <li class="navbar__item link-animation">
+      <a routerLink="/">Overview</a>
+    </li>
+    <li class="navbar__item link-animation">
+      <a routerLink="/logs">Logs</a>
+    </li>
+    <li class="navbar__item link-animation">
+      <a routerLink="/graphs">Graphs</a>
+    </li>
+    <li class="navbar__item link-animation">
+      <a routerLink="/detectors">Detectors</a>
+    </li>
   </ul>
 </nav>

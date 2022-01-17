@@ -5,7 +5,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
-import {NavbarItemComponent} from './components/navbar-item/navbar-item.component';
 import {MetricGraphComponent} from './components/telemetry/metric-graph/metric-graph.component';
 import {LogListComponent} from './components/telemetry/log-list/log-list.component';
 import {LogListEntryComponent} from './components/telemetry/log-list-entry/log-list-entry.component';
@@ -20,7 +19,6 @@ import { FilterComponent } from './components/filter/filter.component';
   declarations: [
     AppComponent,
     NavbarComponent,
-    NavbarItemComponent,
     MetricGraphComponent,
     LogListComponent,
     LogListEntryComponent,

@@ -1,0 +1,7 @@
+.navbar__item {
+  @apply md:inline uppercase font-bold md:ml-6 cursor-pointer block;
+}
+
+.navbar {
+  @apply flex flex-col md:flex-row items-center p-0;
+}

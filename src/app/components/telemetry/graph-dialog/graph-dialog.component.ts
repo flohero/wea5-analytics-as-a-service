@@ -18,7 +18,6 @@ export class GraphDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.newGraphEvent)
     this.metricService.findDistinctNames().subscribe(names => {
       this.names = names;
     });

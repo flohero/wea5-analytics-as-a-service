@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MetricService} from "../../../services/metric.service";
-import {ChartType} from "chart.js";
+import {ChartConfiguration, ChartType} from "chart.js";
 import {MetricFilter} from "../../../model/metricFilter";
+import 'chartjs-adapter-moment'
 
 
 @Component({
@@ -12,18 +13,25 @@ import {MetricFilter} from "../../../model/metricFilter";
 export class MetricGraphComponent implements OnInit {
 
   @Input() metricFilter: MetricFilter
-  chartOptions = {
-    scaleShowVerticalLines: false,
+  chartOptions: ChartConfiguration['options'] = {
+    maintainAspectRatio: false,
     responsive: true,
     scales: {
       x: {
-        ticks: {
-          maxTicksLimit: 20,
-          autoSkip: true
-        }
-      }
+        type: 'time'
+      },
+      y: {
+        position: 'left',
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom'
+      },
     }
-  };
+  }
+
   chartType: ChartType = 'line'
   labels: Array<string> = [];
   legend = true;
@@ -38,7 +46,7 @@ export class MetricGraphComponent implements OnInit {
         const grouped = this.metricService.groupByName(metrics)
         this.labels = metrics.map(metric => new Date(metric.createdAt).toISOString().substring(0, 19));
         this.data = []
-        for(let key in grouped) {
+        for (let key in grouped) {
           this.data.push({
             label: key,
             data: grouped[key]

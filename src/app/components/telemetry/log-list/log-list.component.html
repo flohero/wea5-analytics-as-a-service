@@ -17,15 +17,6 @@
 <div *ngIf="!logs || logs.length == 0 && !loading" class="w-full text-center text-2xl mb-3">
   <h2>No entries found</h2>
 </div>
-<div class="flex justify-center h-96" *ngIf="loading">
-  <svg class="h-20 w-20 mt-48 text-indigo-600 bg-white" viewBox="0 0 100 100">
-    <circle cx="50" cy="50" fill="none" stroke="currentColor" stroke-width="10" r="35"
-            stroke-dasharray="164.93361431346415 56.97787143782138">
-      <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s"
-                        values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
-    </circle>
-  </svg>
-</div>
 
 <div class="flex justify-center mt-4 text-indigo-600">
   <div class="grow"></div>
