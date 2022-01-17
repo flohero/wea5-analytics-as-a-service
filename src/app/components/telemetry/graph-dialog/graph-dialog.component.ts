@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {MetricFilter} from "../../../model/metricFilter";
+import {TelemetryFilter} from "../../../model/telemetryFilter";
 import {MetricService} from "../../../services/metric.service";
 
 @Component({
@@ -9,9 +9,9 @@ import {MetricService} from "../../../services/metric.service";
 })
 export class GraphDialogComponent implements OnInit {
 
-  charts: Array<MetricFilter> = []
+  charts: Array<TelemetryFilter> = []
   names: Array<string> = []
-  @Output() newGraphEvent = new EventEmitter<MetricFilter>();
+  @Output() newGraphEvent = new EventEmitter<TelemetryFilter>();
 
 
   constructor(private metricService: MetricService) {
@@ -23,7 +23,7 @@ export class GraphDialogComponent implements OnInit {
     });
   }
 
-  previewGraph(filter: MetricFilter) {
+  previewGraph(filter: TelemetryFilter) {
     filter.count = 100
     this.charts[0] = filter
   }

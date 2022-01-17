@@ -1,4 +1,4 @@
-export interface MetricFilter {
+export interface TelemetryFilter {
   name: string
   names: Array<string>
   type: string

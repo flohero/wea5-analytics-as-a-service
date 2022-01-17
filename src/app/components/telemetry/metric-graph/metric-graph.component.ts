@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MetricService} from "../../../services/metric.service";
 import {ChartConfiguration, ChartType} from "chart.js";
-import {MetricFilter} from "../../../model/metricFilter";
+import {TelemetryFilter} from "../../../model/telemetryFilter";
 import 'chartjs-adapter-moment'
 
 
@@ -12,7 +12,7 @@ import 'chartjs-adapter-moment'
 })
 export class MetricGraphComponent implements OnInit {
 
-  @Input() metricFilter: MetricFilter
+  @Input() metricFilter: TelemetryFilter
   chartOptions: ChartConfiguration['options'] = {
     maintainAspectRatio: false,
     responsive: true,

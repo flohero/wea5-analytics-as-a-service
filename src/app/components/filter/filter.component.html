@@ -8,35 +8,40 @@
            class="input input-label__input"
            id="name"
            list="names"
-           placeholder="Name"
-    >
+           placeholder="Name">
   </div>
 
-  <div class="flex block m-1 w-full" *ngIf="!useSearch">
-    <label for="names" class="mr-4 inline-block mt-2">Metric Names: </label>
-    <div class="input flex flex-wrap text-indigo-700 pb-4 grow">
-      <span class="chip mr-3 my-1" *ngFor="let name of names; index as i">
-        {{name}}
-        <button class="cursor-pointer ml-1 my-auto hover:text-white rounded-full hover:bg-indigo-400 w-6 h-6 text-center" (click)="removeName(i)">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-4 m-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-          </svg>
-        </button>
-      </span>
+  <div class="flex block m-1 w-full flex-col" *ngIf="!useSearch">
+    <div class="flex block m-1 w-full">
+      <label for="names" class="mr-4 inline-block mt-2">Metric Names: </label>
       <input name="names"
              type="text"
-             class="focus-visible:outline-none my-1 text-black"
+             class="input focus-visible:outline-none my-1 text-black"
              (keydown.enter)="addName()"
              (keydown.backspace)="removeNameByBackspace()"
              formControlName="names"
              list="names"
              autofocus>
-      <hr/>
+    </div>
+    <div class="flex flex-wrap text-indigo-700 pb-4 grow">
+      <span class="chip mr-3 my-1" *ngFor="let name of names; index as i">
+          {{name}}
+        <button
+          class="cursor-pointer ml-1 my-auto hover:text-white rounded-full hover:bg-indigo-400 w-6 h-6 text-center"
+          (click)="removeName(i)">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-4 m-auto" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
+            </svg>
+          </button>
+        </span>
     </div>
   </div>
+
   <datalist id="names">
     <option *ngFor="let name of telemetryNames">{{name}}</option>
   </datalist>
+
   <div class="input-label">
     <label for="from" class="input-label__label">From: </label>
     <input type="datetime-local"

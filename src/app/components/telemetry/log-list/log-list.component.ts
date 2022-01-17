@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Log} from "../../../model/log";
 import {LogService} from "../../../services/log.service";
 import {LogType} from "../../../model/logType";
-import {MetricFilter} from "../../../model/metricFilter";
+import {TelemetryFilter} from "../../../model/telemetryFilter";
 import {FilterRoutingService} from "../../../services/filter-routing.service";
 
 @Component({
@@ -15,7 +15,7 @@ export class LogListComponent implements OnInit {
   logs: Array<Log>;
   names: Array<string>
   logTypes = Object.values(LogType)
-  filter: MetricFilter
+  filter: TelemetryFilter
 
   loading: boolean = true
 
@@ -34,7 +34,7 @@ export class LogListComponent implements OnInit {
       })
   }
 
-  applyFilter(filter: MetricFilter | null) {
+  applyFilter(filter: TelemetryFilter | null) {
     this.loading = true
     this.filter = filter ?? this.filter
 

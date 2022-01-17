@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {StorageService} from "../../../services/storage.service";
-import {MetricFilter} from "../../../model/metricFilter";
+import {TelemetryFilter} from "../../../model/telemetryFilter";
 
 @Component({
   selector: 'app-graph-dashboard',
@@ -10,17 +10,17 @@ import {MetricFilter} from "../../../model/metricFilter";
 export class GraphDashboardComponent implements OnInit {
 
   private readonly graphModalId = 'graph-modal';
-  charts: Array<MetricFilter>
+  charts: Array<TelemetryFilter>
 
   constructor(private storageService: StorageService) { }
 
   ngOnInit(): void {
-    this.charts = this.storageService.get<Array<MetricFilter>>(StorageService.METRIC_CHARTS) ?? []
+    this.charts = this.storageService.get<Array<TelemetryFilter>>(StorageService.METRIC_CHARTS) ?? []
   }
 
-  loadGraphs(filters: MetricFilter) {
+  loadGraphs(filters: TelemetryFilter) {
     this.charts.push(filters)
-    this.storageService.set<Array<MetricFilter>>(StorageService.METRIC_CHARTS, this.charts)
+    this.storageService.set<Array<TelemetryFilter>>(StorageService.METRIC_CHARTS, this.charts)
     const modal  = document.getElementById(this.graphModalId)
     modal?.classList.add('hidden')
   }
@@ -33,7 +33,7 @@ export class GraphDashboardComponent implements OnInit {
 
   removeGraph(i: number) {
     this.charts.splice(i, 1)
-    this.storageService.set<Array<MetricFilter>>(StorageService.METRIC_CHARTS, this.charts)
+    this.storageService.set<Array<TelemetryFilter>>(StorageService.METRIC_CHARTS, this.charts)
   }
 
   showGraph(i: number) {

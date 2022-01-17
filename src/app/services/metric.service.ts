@@ -4,7 +4,7 @@ import {environment} from "../../environments/environment";
 import {map, Observable} from "rxjs";
 import {Metric} from "../model/metric";
 import {Relations} from "../model/relations";
-import {MetricFilter} from "../model/metricFilter";
+import {TelemetryFilter} from "../model/telemetryFilter";
 import {NameToValueMapping} from "../model/nameToValueMapping";
 
 @Injectable({
@@ -15,7 +15,7 @@ export class MetricService {
   constructor(private client: HttpClient) {
   }
 
-  findMetrics({names, count, page, from, to}: MetricFilter): Observable<Array<Metric>> {
+  findMetrics({names, count, page, from, to}: TelemetryFilter): Observable<Array<Metric>> {
     const namesParam = names?.map(name => `names=${name}`).join('&') ?? ''
     return this.client.get<any>(`${environment.url}/metrics?${namesParam}&from=${from ?? ''}&to=${to ?? ''}&count=${count}&page=${page}`)
       .pipe(map(res => res['items']))

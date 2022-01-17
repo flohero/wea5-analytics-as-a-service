@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
-import {MetricFilter} from "../../model/metricFilter";
+import {TelemetryFilter} from "../../model/telemetryFilter";
 
 @Component({
   selector: 'app-filter',
@@ -14,7 +14,8 @@ export class FilterComponent implements OnInit {
   @Input() types: Array<string>
   @Input() submitTitle: string = 'Filter'
   @Input() useSearch: boolean = true
-  @Output() filterEvent: EventEmitter<MetricFilter> = new EventEmitter<MetricFilter>()
+  @Input() defaultFilter: TelemetryFilter
+  @Output() filterEvent: EventEmitter<TelemetryFilter> = new EventEmitter<TelemetryFilter>()
 
   filterForm: FormGroup
   names: Array<string> = []
@@ -36,7 +37,7 @@ export class FilterComponent implements OnInit {
 
   submit() {
     const filterValues = this.filterForm.value;
-    const metricFilter: MetricFilter = {
+    const metricFilter: TelemetryFilter = {
       name: filterValues.name,
       names: this.names,
       from: filterValues.from,
