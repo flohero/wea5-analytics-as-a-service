@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {map, Observable} from "rxjs";
 import {Log} from "../model/log";
-import {LogType} from "../model/logType";
+import {TelemetryFilter} from "../model/telemetryFilter";
 
 @Injectable({
   providedIn: 'root'
@@ -13,20 +13,15 @@ export class LogService {
   constructor(private client: HttpClient) {
   }
 
-  findLogs(logCount: number,
-           page: number,
-           name: string,
-           logType: LogType | string | null,
-           from: Date | null,
-           to: Date | null
-  ): Observable<Array<Log>> {
+  findLogs({count, page, searchText, type, from, to, instance}: TelemetryFilter): Observable<Array<Log>> {
     return this.client.get<any>(`${environment.url}/logs?
-count=${logCount}
+count=${count}
 &offset=${page}
-&searchText=${name}
-&type=${logType ?? ''}
+&searchText=${searchText}
+&type=${type ?? ''}
 &from=${from ?? ''}
-&to=${to ?? ''}`
+&to=${to ?? ''}
+&instanceId=${instance}`
     ).pipe(map(res => res['items']));
   }
 

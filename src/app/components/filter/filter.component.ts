@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
 import {TelemetryFilter} from "../../model/telemetryFilter";
 
 @Component({
@@ -14,37 +13,52 @@ export class FilterComponent implements OnInit {
   @Input() types: Array<string>
   @Input() submitTitle: string = 'Filter'
   @Input() useSearch: boolean = true
-  @Input() defaultFilter: TelemetryFilter
+  @Input() showCount: boolean;
+
+  @Input() defaultFilter: TelemetryFilter = {
+    count: 100,
+    from: null,
+    names: [],
+    page: 0,
+    searchText: '',
+    to: null,
+    type: '',
+    instance: ''
+  }
   @Output() filterEvent: EventEmitter<TelemetryFilter> = new EventEmitter<TelemetryFilter>()
 
   filterForm: FormGroup
   names: Array<string> = []
+  instances: Array<string> = []
 
-  constructor(private route: ActivatedRoute) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.filterForm = new FormGroup({
-        name: new FormControl(params['name']),
-        names: new FormControl(),
-        type: new FormControl(params['type']),
-        from: new FormControl(params['from']),
-        to: new FormControl(params['to']),
-      });
-    })
+    this.names = this.defaultFilter.names
+    this.filterForm = new FormGroup({
+      name: new FormControl(this.defaultFilter.searchText),
+      names: new FormControl(),
+      type: new FormControl(this.defaultFilter.type),
+      from: new FormControl(this.defaultFilter.from),
+      to: new FormControl(this.defaultFilter.to),
+      instance: new FormControl(this.defaultFilter.instance),
+      count: new FormControl(this.defaultFilter.count)
+    });
+
   }
 
   submit() {
     const filterValues = this.filterForm.value;
     const metricFilter: TelemetryFilter = {
-      name: filterValues.name,
+      searchText: filterValues.name,
       names: this.names,
       from: filterValues.from,
       to: filterValues.to,
-      count: 100,
+      count: filterValues.count,
       type: filterValues.type,
-      page: 0
+      page: 0,
+      instance: filterValues.instance
     }
     this.filterEvent.emit(metricFilter)
   }

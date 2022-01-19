@@ -13,6 +13,7 @@ import 'chartjs-adapter-moment'
 export class MetricGraphComponent implements OnInit {
 
   @Input() metricFilter: TelemetryFilter
+
   chartOptions: ChartConfiguration['options'] = {
     maintainAspectRatio: false,
     responsive: true,
@@ -33,23 +34,32 @@ export class MetricGraphComponent implements OnInit {
   }
 
   chartType: ChartType = 'line'
-  labels: Array<string> = [];
+  labels: Array<Date> = [];
   legend = true;
-  data: any = []
+  data: Array<any> = []
 
   constructor(private metricService: MetricService) {
   }
 
   ngOnInit() {
+    console.log("Test", this.metricFilter.names)
     this.metricService.findMetrics(this.metricFilter)
       .subscribe(metrics => {
         const grouped = this.metricService.groupByName(metrics)
-        this.labels = metrics.map(metric => new Date(metric.createdAt).toISOString().substring(0, 19));
-        this.data = []
+        console.log(grouped)
+        this.labels = metrics.map(metric => (metric.createdAt))
         for (let key in grouped) {
+          const dataset = grouped[key]
+          const values: Array<number | null> = []
+          for (const label of this.labels) {
+            const datedValue = dataset.find(dv => {
+              return (dv.createdAt) === label
+            })
+            values.push(datedValue?.value ?? null)
+          }
           this.data.push({
             label: key,
-            data: grouped[key]
+            data: values
           })
         }
       })

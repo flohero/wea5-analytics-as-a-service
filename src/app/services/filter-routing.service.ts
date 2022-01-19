@@ -15,11 +15,12 @@ export class FilterRoutingService {
     const queryParams = {
       'count': filter.count,
       'page': filter.page,
-      'name': filter.name,
+      'name': filter.searchText,
       'names': filter.names,
       'type': filter.type,
       'to': filter.to,
-      'from': filter.from
+      'from': filter.from,
+      'instance': filter.instance
     }
     this.router.navigate(
       [],
@@ -33,13 +34,14 @@ export class FilterRoutingService {
   routeToFilter(): Observable<TelemetryFilter> {
     return this.route.queryParams.pipe<TelemetryFilter>(map(params => {
       const filter: TelemetryFilter = {
-        name: params['name'],
-        names: params['names'],
-        type: params['type'],
-        from: params['from'],
-        to: params['to'],
+        searchText: params['name'] ?? '',
+        names: params['names'] ?? '',
+        type: params['type'] ?? '',
+        from: params['from'] ?? '',
+        to: params['to'] ?? '',
         page: parseInt(params['page'] ?? 0) ,
         count: parseInt(params['count']?? 100),
+        instance: params['instance'] ?? '',
       }
       return filter
     }))

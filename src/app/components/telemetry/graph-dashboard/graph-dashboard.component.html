@@ -28,5 +28,5 @@
   <button class="button" (click)="showModal()">Add Graph</button>
 </div>
 <app-modal title="Add Graph" id="graph-modal" class="hidden">
-  <app-graph-dialog class="max-h-full" (newGraphEvent)="loadGraphs($event)"></app-graph-dialog>
+  <app-graph-dialog class="max-h-full" (newGraphEvent)="addGraph($event)"></app-graph-dialog>
 </app-modal>

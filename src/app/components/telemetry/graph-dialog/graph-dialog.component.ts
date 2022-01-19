@@ -24,7 +24,6 @@ export class GraphDialogComponent implements OnInit {
   }
 
   previewGraph(filter: TelemetryFilter) {
-    filter.count = 100
     this.charts[0] = filter
   }
 

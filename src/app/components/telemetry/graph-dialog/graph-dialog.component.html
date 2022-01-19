@@ -1,5 +1,5 @@
 <div>
-  <app-filter submitTitle="Preview" (filterEvent)="previewGraph($event)" [useSearch]="false"
+  <app-filter submitTitle="Preview" (filterEvent)="previewGraph($event)" [useSearch]="false" [showCount]="true"
               [telemetryNames]="names"></app-filter>
   <div class="my-4">
     <app-metric-graph *ngFor="let chart of charts" [metricFilter]="chart"></app-metric-graph>

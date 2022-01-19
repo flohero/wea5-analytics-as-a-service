@@ -1,29 +1,19 @@
 <form [formGroup]="filterForm" (ngSubmit)="submit()" (keydown.enter)="$event.preventDefault()"
-      class="form-filter mr-2">
-  <div class="input-label" *ngIf="useSearch">
-    <label for="name" class="input-label__label">Name: </label>
-    <input type="text"
-           formControlName="name"
-           name="name"
-           class="input input-label__input"
-           id="name"
-           list="names"
-           placeholder="Name">
-  </div>
-
-  <div class="flex block m-1 w-full flex-col" *ngIf="!useSearch">
-    <div class="flex block m-1 w-full">
-      <label for="names" class="mr-4 inline-block mt-2">Metric Names: </label>
-      <input name="names"
-             type="text"
-             class="input focus-visible:outline-none my-1 text-black"
-             (keydown.enter)="addName()"
-             (keydown.backspace)="removeNameByBackspace()"
-             formControlName="names"
-             list="names"
-             autofocus>
-    </div>
-    <div class="flex flex-wrap text-indigo-700 pb-4 grow">
+      class="form-filter flex flex-col  mx-auto">
+  <div class="flex flex-col md:flex-row flex-wrap w-full mx-10">
+    <div class="flex block m-1 flex-col w-full" *ngIf="!useSearch">
+      <div class="flex block">
+        <label for="names" class="mr-4 inline-block mt-2">Metric Names: </label>
+        <input name="names"
+               type="text"
+               class="input focus-visible:outline-none my-1 text-black"
+               (keydown.enter)="addName()"
+               (keydown.backspace)="removeNameByBackspace()"
+               formControlName="names"
+               list="names"
+               autofocus>
+      </div>
+      <div class="flex flex-wrap text-indigo-700 pb-4 grow">
       <span class="chip mr-3 my-1" *ngFor="let name of names; index as i">
           {{name}}
         <button
@@ -35,40 +25,84 @@
             </svg>
           </button>
         </span>
+      </div>
+      <hr/>
+    </div>
+
+    <div class="input-label" *ngIf="useSearch">
+      <label for="name" class="input-label__label">Name: </label>
+      <input type="text"
+             formControlName="name"
+             name="name"
+             class="input input-label__input"
+             id="name"
+             list="names"
+             placeholder="Name">
+    </div>
+
+    <datalist id="names">
+      <option *ngFor="let name of telemetryNames">{{name}}</option>
+    </datalist>
+
+    <div class="input-label">
+      <label for="instance" class="input-label__label">Instance: </label>
+      <input type="text"
+             formControlName="instance"
+             name="instance"
+             class="input input-label__input"
+             id="instance"
+             list="instances"
+             placeholder="Instance">
+      <datalist id="instances">
+        <option *ngFor="let instance of instances">{{instance}}</option>
+      </datalist>
+    </div>
+
+    <div class="input-label">
+      <label for="type" class="input-label__label">Type: </label>
+      <select type="number"
+              formControlName="type"
+              name="count"
+              class="select input-label__input"
+              id="type">
+        <option *ngFor="let type of types" value="{{type}}">{{type}}</option>
+        <option value="" selected>None</option>
+      </select>
+    </div>
+
+    <div class="input-label">
+      <label for="from" class="input-label__label">From: </label>
+      <input type="datetime-local"
+             formControlName="from"
+             class="input input-label__input text-black"
+             id="from"
+      >
+    </div>
+    <div class="input-label">
+      <label for="to" class="input-label__label">To: </label>
+      <input type="datetime-local"
+             formControlName="to"
+             name="to"
+             class="input input-label__input"
+             id="to"
+      >
+    </div>
+    <div class="input-label" *ngIf="showCount">
+      <label for="count" class="input-label__label">Count: </label>
+      <select type="number"
+              name="count"
+              formControlName="count"
+              id="count"
+              class="select">
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="1000">1000</option>
+      </select>
+    </div>
+
+    <div class="grow flex justify-end">
+      <button class="md:block inline-block flex justify-center my-auto button">{{submitTitle}}</button>
     </div>
   </div>
-
-  <datalist id="names">
-    <option *ngFor="let name of telemetryNames">{{name}}</option>
-  </datalist>
-
-  <div class="input-label">
-    <label for="from" class="input-label__label">From: </label>
-    <input type="datetime-local"
-           formControlName="from"
-           class="input input-label__input text-black"
-           id="from"
-    >
-  </div>
-  <div class="input-label">
-    <label for="to" class="input-label__label">To: </label>
-    <input type="datetime-local"
-           formControlName="to"
-           name="to"
-           class="input input-label__input"
-           id="to"
-    >
-  </div>
-  <div class="input-label">
-    <label for="type" class="input-label__label">Type: </label>
-    <select type="number"
-            formControlName="type"
-            name="count"
-            class="select input-label__input"
-            id="type">
-      <option *ngFor="let type of types" value="{{type}}">{{type}}</option>
-      <option value="" selected>None</option>
-    </select>
-  </div>
-  <button class="md:block inline-block flex justify-center my-auto button">{{submitTitle}}</button>
 </form>

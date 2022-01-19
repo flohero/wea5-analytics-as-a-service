@@ -38,16 +38,12 @@ export class LogListComponent implements OnInit {
     this.loading = true
     this.filter = filter ?? this.filter
 
-    this.logService.findLogs(
-      this.filter.count,
-      this.filter.page,
-      this.filter.name ?? '',
-      this.filter.type,
-      this.filter.from,
-      this.filter.to
-    ).subscribe(res => this.logs = res);
-    this.updateRoute()
-    this.loading = false
+    this.logService.findLogs(this.filter)
+      .subscribe(res => {
+        this.logs = res
+        this.updateRoute()
+        this.loading = false
+      });
   }
 
   nextPage() {

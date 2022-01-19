@@ -1,3 +1,8 @@
 export interface NameToValueMapping {
-  [key: string]: number[]
+  [key: string]: ValueWithDate[]
+}
+
+export interface ValueWithDate {
+  value: number
+  createdAt: Date
 }
