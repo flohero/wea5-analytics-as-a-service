@@ -17,7 +17,7 @@ export class MetricService {
               private storageService: StorageService) {
   }
 
-  findMetrics({names, count, page, from, to, instance}: TelemetryFilter): Observable<Array<Metric>> {
+  findMetrics({names, count, page, from, to, instance, type}: TelemetryFilter): Observable<Array<Metric>> {
     let params = new HttpParams()
     names.forEach(n => params = params.append('names', n))
     params = params.append('from', from?.toISOString() ?? '')
@@ -25,6 +25,7 @@ export class MetricService {
       .append('offset', page ?? 0)
       .append('count', count ?? 0)
       .append('instance', instance ?? '')
+      .append('type', type ?? '')
 
     return this.client.get<any>(`${environment.url}/metrics`, {params})
       .pipe(map(res => res['items']))

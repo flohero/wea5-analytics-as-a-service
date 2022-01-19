@@ -1,8 +1,8 @@
 <div>
-  <app-filter submitTitle="Preview" (filterEvent)="previewGraph($event)" [useSearch]="false" [showCount]="true"
+  <app-filter submitTitle="Preview" (filterEvent)="previewGraph($event)" [useSearch]="false" [showCount]="true" [types]="types"
               [telemetryNames]="names" [defaultFilter]="defaultChart" *ngIf="defaultChart"></app-filter>
 
-  <app-filter submitTitle="Preview" (filterEvent)="previewGraph($event)" [useSearch]="false" [showCount]="true"
+  <app-filter submitTitle="Preview" (filterEvent)="previewGraph($event)" [useSearch]="false" [showCount]="true" [types]="types"
               [telemetryNames]="names" *ngIf="!defaultChart"></app-filter>
   <div class="my-4">
     <app-metric-graph *ngFor="let chart of charts" [metricFilter]="chart"></app-metric-graph>

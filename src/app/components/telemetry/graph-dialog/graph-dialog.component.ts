@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TelemetryFilter} from "../../../model/telemetryFilter";
 import {MetricService} from "../../../services/metric.service";
+import {MetricType} from "../../../model/metricType";
 
 @Component({
   selector: 'app-graph-dialog',
@@ -14,6 +15,7 @@ export class GraphDialogComponent implements OnInit {
   @Output() newGraphEvent = new EventEmitter<TelemetryFilter>();
   @Input() defaultChart: TelemetryFilter
   @Input() addButtonText: string;
+  types: Array<string> = Object.values(MetricType)
 
 
   constructor(private metricService: MetricService) {

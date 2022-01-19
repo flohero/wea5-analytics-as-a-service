@@ -45,6 +45,10 @@ export class FilterComponent implements OnInit {
       instance: new FormControl(this.defaultFilter.instance),
       count: new FormControl(this.defaultFilter.count)
     });
+    if (!this.useSearch) {
+      this.filterForm.valueChanges.subscribe(() => this.submit())
+    }
+
   }
 
   submit() {
@@ -69,6 +73,7 @@ export class FilterComponent implements OnInit {
   }
 
   removeName(index: number) {
+    this.submit()
     this.names.splice(index, 1);
   }
 
