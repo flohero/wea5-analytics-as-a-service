@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {DetectorService} from "../../services/detector.service";
+import {Detector} from "../../model/detector";
 
 @Component({
   selector: 'app-detectors',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetectorsComponent implements OnInit {
 
-  constructor() { }
+  detectors: Array<Detector> = []
+
+  constructor(private detectorService: DetectorService) { }
 
   ngOnInit(): void {
+    this.detectorService.findAllDetectors()
+      .subscribe(detectors => this.detectors = detectors)
   }
 
 }
