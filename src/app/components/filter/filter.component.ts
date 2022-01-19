@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {TelemetryFilter} from "../../model/telemetryFilter";
+import {TelemetryFilter} from "../../model/telemetry-filter";
 
 @Component({
   selector: 'app-filter',

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {TelemetryFilter} from "../../../model/telemetryFilter";
+import {TelemetryFilter} from "../../../model/telemetry-filter";
 import {MetricService} from "../../../services/metric.service";
 
 @Component({

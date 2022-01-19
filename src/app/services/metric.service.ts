@@ -4,8 +4,8 @@ import {environment} from "../../environments/environment";
 import {map, Observable} from "rxjs";
 import {Metric} from "../model/metric";
 import {Relations} from "../model/relations";
-import {TelemetryFilter} from "../model/telemetryFilter";
-import {NameToValueMapping} from "../model/nameToValueMapping";
+import {TelemetryFilter} from "../model/telemetry-filter";
+import {NameToValueMapping} from "../model/name-to-value-mapping";
 import {StorageService} from "./storage.service";
 
 @Injectable({

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MetricService} from "../../../services/metric.service";
 import {ChartConfiguration, ChartType} from "chart.js";
-import {TelemetryFilter} from "../../../model/telemetryFilter";
+import {TelemetryFilter} from "../../../model/telemetry-filter";
 import 'chartjs-adapter-moment'
 
 

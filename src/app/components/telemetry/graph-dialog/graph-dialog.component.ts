@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TelemetryFilter} from "../../../model/telemetryFilter";
+import {TelemetryFilter} from "../../../model/telemetry-filter";
 import {MetricService} from "../../../services/metric.service";
-import {MetricType} from "../../../model/metricType";
+import {MetricType} from "../../../model/metric-type";
 
 @Component({
   selector: 'app-graph-dialog',

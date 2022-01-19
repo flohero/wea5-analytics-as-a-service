@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Log} from "../../../model/log";
 import {LogService} from "../../../services/log.service";
-import {LogType} from "../../../model/logType";
-import {TelemetryFilter} from "../../../model/telemetryFilter";
+import {LogType} from "../../../model/log-type";
+import {TelemetryFilter} from "../../../model/telemetry-filter";
 import {FilterRoutingService} from "../../../services/filter-routing.service";
 
 @Component({

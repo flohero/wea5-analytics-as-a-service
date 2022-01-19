@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {TelemetryFilter} from "../model/telemetryFilter";
+import {TelemetryFilter} from "../model/telemetry-filter";
 import {map, Observable} from "rxjs";
 
 @Injectable({

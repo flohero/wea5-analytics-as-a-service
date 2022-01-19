@@ -14,6 +14,7 @@ import { GraphDashboardComponent } from './components/telemetry/graph-dashboard/
 import { GraphDialogComponent } from './components/telemetry/graph-dialog/graph-dialog.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { FilterComponent } from './components/filter/filter.component';
+import { DetectorsComponent } from './components/detectors/detectors.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FilterComponent } from './components/filter/filter.component';
     GraphDialogComponent,
     ModalComponent,
     FilterComponent,
+    DetectorsComponent,
   ],
     imports: [
         BrowserModule,

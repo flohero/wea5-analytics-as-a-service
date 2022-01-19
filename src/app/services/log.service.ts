@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {map, Observable} from "rxjs";
 import {Log} from "../model/log";
-import {TelemetryFilter} from "../model/telemetryFilter";
+import {TelemetryFilter} from "../model/telemetry-filter";
 
 @Injectable({
   providedIn: 'root'
