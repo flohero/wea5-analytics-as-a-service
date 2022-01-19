@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TelemetryFilter} from "../../../model/telemetryFilter";
 import {MetricService} from "../../../services/metric.service";
 
@@ -12,6 +12,8 @@ export class GraphDialogComponent implements OnInit {
   charts: Array<TelemetryFilter> = []
   names: Array<string> = []
   @Output() newGraphEvent = new EventEmitter<TelemetryFilter>();
+  @Input() defaultChart: TelemetryFilter
+  @Input() addButtonText: string;
 
 
   constructor(private metricService: MetricService) {

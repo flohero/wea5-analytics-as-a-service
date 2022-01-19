@@ -45,7 +45,6 @@ export class FilterComponent implements OnInit {
       instance: new FormControl(this.defaultFilter.instance),
       count: new FormControl(this.defaultFilter.count)
     });
-
   }
 
   submit() {

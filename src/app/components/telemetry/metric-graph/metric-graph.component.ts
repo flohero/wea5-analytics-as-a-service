@@ -42,11 +42,9 @@ export class MetricGraphComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Test", this.metricFilter.names)
     this.metricService.findMetrics(this.metricFilter)
       .subscribe(metrics => {
         const grouped = this.metricService.groupByName(metrics)
-        console.log(grouped)
         this.labels = metrics.map(metric => (metric.createdAt))
         for (let key in grouped) {
           const dataset = grouped[key]

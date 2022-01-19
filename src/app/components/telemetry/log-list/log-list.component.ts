@@ -47,7 +47,6 @@ export class LogListComponent implements OnInit {
   }
 
   nextPage() {
-    console.log(this.filter)
     if (this.hasNextPage()) {
       this.filter.page++
       this.applyFilter(null)

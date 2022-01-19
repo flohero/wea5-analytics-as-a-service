@@ -65,4 +65,10 @@ export class MetricService {
     this.setAllCharts(charts)
   }
 
+  updateChartById(id: number, chart: TelemetryFilter) {
+    const charts = this.findAllCharts()
+    charts[id] = chart
+    this.setAllCharts(charts)
+  }
+
 }

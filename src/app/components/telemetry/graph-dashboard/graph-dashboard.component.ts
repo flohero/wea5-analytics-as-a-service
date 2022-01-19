@@ -31,13 +31,22 @@ export class GraphDashboardComponent implements OnInit {
     modal?.classList.remove('hidden')
   }
 
-  removeGraph(i: number) {
-    this.metricService.removeChart(i)
+  removeGraph(id: number) {
+    this.metricService.removeChart(id)
     this.charts = this.metricService.findAllCharts()
   }
 
-  showGraph(i: number) {
-    const modal = document.getElementById(`graph-details-${i}`)
+  editGraph(id: number) {
+    const chartId = `graph-details-${id}`
+    const modal = document.getElementById(chartId)
     modal?.classList.remove('hidden')
+
+  }
+
+  updateGraph(filter: TelemetryFilter, id: number) {
+    this.metricService.updateChartById(id, filter)
+    this.charts = this.metricService.findAllCharts()
+    const modal = document.getElementById(this.graphModalId)
+    modal?.classList.add('hidden')
   }
 }
