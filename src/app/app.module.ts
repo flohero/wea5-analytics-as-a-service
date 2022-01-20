@@ -15,6 +15,7 @@ import { GraphDialogComponent } from './components/telemetry/graph-dialog/graph-
 import { ModalComponent } from './components/modal/modal.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { DetectorsComponent } from './components/detectors/detectors.component';
+import { TimespanPipe } from './pipes/timespan.pipe';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { DetectorsComponent } from './components/detectors/detectors.component';
     ModalComponent,
     FilterComponent,
     DetectorsComponent,
+    TimespanPipe,
   ],
     imports: [
         BrowserModule,

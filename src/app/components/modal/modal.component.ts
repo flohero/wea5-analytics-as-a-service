@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -15,6 +15,7 @@ export class ModalComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  @HostListener('document:keyup.Escape')
   close() {
     this.el.nativeElement.classList.add('hidden')
   }

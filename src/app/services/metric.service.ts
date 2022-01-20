@@ -20,8 +20,8 @@ export class MetricService {
   findMetrics({names, count, page, from, to, instance, type}: TelemetryFilter): Observable<Array<Metric>> {
     let params = new HttpParams()
     names.forEach(n => params = params.append('names', n))
-    params = params.append('from', from?.toISOString() ?? '')
-      .append('to', to?.toISOString() ?? '')
+    params = params.append('from', from?.toString() ?? '')
+      .append('to', to?.toString() ?? '')
       .append('offset', page ?? 0)
       .append('count', count ?? 0)
       .append('instance', instance ?? '')

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Detector} from "../model/detector";
-import {Observable} from "rxjs";
+import {map, Observable, throwError} from "rxjs";
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -13,5 +13,20 @@ export class DetectorService {
 
   findAllDetectors(): Observable<Array<Detector>> {
     return this.httpClient.get<Array<Detector>>(`${environment.url}/detectors`)
+  }
+
+  public isHeartbeatDetector(detector: Detector): boolean {
+    return detector.metricName.toLowerCase().endsWith('heartbeat')
+  }
+
+  public deleteDetector(detector: Detector): Observable<Object | string> {
+    if(this.isHeartbeatDetector(detector) || !detector || detector.id < 1) {
+      return throwError(() => 'could not delete detector')
+    }
+    return this.httpClient.delete<Object>(`${environment.url}/detectors/${detector.id}`)
+      .pipe(map(res => {
+        console.log(res)
+        return res
+      }))
   }
 }

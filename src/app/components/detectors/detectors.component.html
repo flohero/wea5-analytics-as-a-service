@@ -1,33 +1,47 @@
 <h1 class="text-center text-3xl">Detectors</h1>
 <div class="grid grid-cols-1 md:grid-cols-2 auto-rows-auto gap-8 mt-7">
-  <div *ngFor="let detector of detectors" [ngClass]="detector.activated ? 'bg-white': 'bg-gray-300'"
+  <div *ngFor="let detector of detectors"
+       [ngClass]="{'bg-gray-300': !detector.activated, 'border-rose-400': isHeartbeatDetector(detector)} "
        class="rounded border-indigo-600 border-2">
-    <h2 class="text-2xl text-center uppercase border-b-2 border-indigo-400 py-2">{{detector.metricName}} Detector</h2>
+    <h2 class="text-2xl text-center uppercase py-2">{{detector.metricName}} Detector</h2>
 
-    <div class="grid grid-cols-2 gap-4 px-8 py-4">
+    <div class="grid grid-cols-2 gap-4 px-8 py-4 border-b-2 border-t-2"
+         [ngClass]="isHeartbeatDetector(detector) ? 'border-rose-300' : 'border-indigo-400'">
       <span>Metric Name: </span>
-      <span class="text-indigo-600">{{detector.metricName}}</span>
+      <span class="text-indigo-800">{{detector.metricName}}</span>
 
       <span>Execution Interval: </span>
-      <span class="text-indigo-600">{{detector.interval}}</span>
+      <span class="text-indigo-800">{{detector.interval | timespan}}</span>
 
       <span>Offset: </span>
-      <span class="text-indigo-600">{{detector.offset}}</span>
+      <span class="text-indigo-800">{{detector.offset | timespan}}</span>
 
       <span>Last Executed: </span>
-      <span class="text-indigo-600">{{detector.lastExecuted | date: 'yyyy-MM-dd hh:mm'}}</span>
+      <span class="text-indigo-800">{{detector.lastExecuted | date: 'yyyy-MM-dd hh:mm'}}</span>
 
-      <div class="grid grid-cols-2 gap-4" *ngIf="detector.intervalDetector">
-        <span>Last Executed: </span>
-        <span class="text-indigo-600">{{detector.lastExecuted | date: 'yyyy-MM-dd hh:mm'}}</span>
+      <div class="grid grid-cols-2 gap-4 col-span-2 w-full" *ngIf="detector.intervalDetector">
+        <span>Aggregate Operation: </span>
+        <span class="text-indigo-800">{{detector.intervalDetector.aggregateOperation}}</span>
+
+        <span>Compare Type: </span>
+        <span class="text-indigo-800">{{detector.intervalDetector.compareType}}</span>
+
+        <span>Threshold: </span>
+        <span class="text-indigo-800">{{detector.intervalDetector.threshold}}</span>
       </div>
 
-      <div class="grid grid-cols-2 gap-4" *ngIf="detector.minMaxDetector">
+      <div class="grid grid-cols-2 gap-4 col-span-2 w-full" *ngIf="detector.minMaxDetector">
         <span>Lower Threshold: </span>
-        <span class="text-indigo-600">{{detector.minMaxDetector.lowerThreshold}}</span>
+        <span class="text-indigo-800">{{detector.minMaxDetector.lowerThreshold}}</span>
+
+        <span>Upper Threshold: </span>
+        <span class="text-indigo-800">{{detector.minMaxDetector.upperThreshold}}</span>
+
+        <span>Max Hits: </span>
+        <span class="text-indigo-800">{{detector.minMaxDetector.maxHits}}</span>
       </div>
     </div>
-    <div class="border-t-2 border-indigo-400 flex flex-row md:flex-row p-2">
+    <div class="flex flex-row md:flex-row p-2">
       <span class="">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 "
              [ngClass]="detector.activated ? 'heart text-rose-600' : 'text-gray-700'"
@@ -37,12 +51,18 @@
                 clip-rule="evenodd"/>
         </svg>
       </span>
-      <span class="grow flex justify-end">
+      <span class="grow flex justify-end" *ngIf="!isHeartbeatDetector(detector)">
         <button>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+          </svg>
+        </button>
+        <button (click)="deleteDetector(detector)">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
-        </svg>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
         </button>
       </span>
     </div>
