@@ -2,13 +2,13 @@
 <div class="grid grid-cols-1 md:grid-cols-2 auto-rows-auto gap-8 mt-7">
   <div *ngFor="let detector of detectors"
        [ngClass]="{'bg-gray-300': !detector.activated, 'border-rose-400': isHeartbeatDetector(detector)} "
-       class="rounded border-indigo-600 border-2">
-    <h2 class="text-2xl text-center uppercase py-2">{{detector.metricName}} Detector</h2>
+       class="rounded border-2">
+    <h2 class="text-2xl text-center uppercase py-2 break-words">{{detector.metricName}} Detector</h2>
 
-    <div class="grid grid-cols-2 gap-4 px-8 py-4 border-b-2 border-t-2"
+    <div class="grid grid-cols-2 gap-2 md:gap-4 px-4 md:px-8 py-4 border-b-2 border-t-2"
          [ngClass]="isHeartbeatDetector(detector) ? 'border-rose-300' : 'border-indigo-400'">
       <span>Metric Name: </span>
-      <span class="text-indigo-800">{{detector.metricName}}</span>
+      <span class="text-indigo-800 break-words">{{detector.metricName}}</span>
 
       <span>Execution Interval: </span>
       <span class="text-indigo-800">{{detector.interval | timespan}}</span>
@@ -68,3 +68,6 @@
     </div>
   </div>
 </div>
+<app-modal title="Add Detector" class="">
+  <app-detector-dialog></app-detector-dialog>
+</app-modal>

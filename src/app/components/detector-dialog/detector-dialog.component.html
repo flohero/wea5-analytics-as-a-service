@@ -1,0 +1,92 @@
+<div class="flex justify-center mt-4">
+  <form [formGroup]="detectorForm" class="grid grid-cols-2 gap-4 md:w-4/5">
+    <label class="text-right" for="name">Metric Name:</label>
+    <input class="input" id="name" formControlName="name" required>
+
+    <label class="text-right" for="interval">Execution Interval:</label>
+    <div formGroupName="interval" class="flex flex-row justify-between" id="interval">
+      <input class="w-1/5 input" formControlName="hours" placeholder="hh" type="number">
+      <span>:</span>
+      <input class="w-1/5 input" formControlName="minutes" placeholder="mm" type="number">
+      <span>:</span>
+      <input class="w-1/5 input" formControlName="seconds" placeholder="ss" type="number">
+    </div>
+
+    <label class="text-right" for="offset">Offset:</label>
+    <div formGroupName="offset" class="flex flex-row justify-between" id="offset">
+      <input class="w-1/5 input" formControlName="hours" placeholder="hh" type="number">
+      <span>:</span>
+      <input class="w-1/5 input" formControlName="minutes" placeholder="mm" type="number">
+      <span>:</span>
+      <input class="w-1/5 input" formControlName="seconds" placeholder="ss" type="number">
+    </div>
+
+    <label class="text-right" for="activated">Activated</label>
+    <input class="checkbox" type="checkbox" id="activated" formControlName="activated" required>
+
+    <label class="text-right" for="endpoint-type">Detector Type:</label>
+    <select class="select" formControlName="detectorType" required>
+      <option value="interval" selected>
+        Interval Detector
+      </option>
+      <option value="minmax">
+        Min Max Detector
+      </option>
+    </select>
+
+    <div class="grid grid-cols-2 gap-4 col-span-2" formGroupName="intervalDetector"
+         *ngIf="isIntervalDetector()">
+
+      <label class="text-right" for="aggregate-operation">Aggregate Operation:</label>
+      <select class="select" id="aggregate-operation" formControlName="aggregateOperation" required>
+        <option *ngFor="let op of aggregateOperations" [value]="op">
+          {{op}}
+        </option>
+      </select>
+
+      <label class="text-right" for="compare-type">Compare Type:</label>
+      <select class="select" id="compare-type" formControlName="compareType" required>
+        <option *ngFor="let type of compareType" [value]="type">
+          {{type}}
+        </option>
+      </select>
+
+      <label class="text-right" for="threshold">Threshold:</label>
+      <input type="number" class="input" id="threshold" formControlName="threshold" required>
+
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 col-span-2" formGroupName="minMaxDetector"
+         *ngIf="isMinMaxDetector()">
+
+      <label class="text-right" for="lower-threshold">Lower Threshold:</label>
+      <input type="number" class="input" id="lower-threshold" formControlName="lowerThreshold" required>
+
+      <label class="text-right" for="upper-threshold">Upper Threshold:</label>
+      <input type="number" class="input" id="upper-threshold" formControlName="upperThreshold" required>
+
+      <label class="text-right" for="max-hits">Max Hits:</label>
+      <input type="number" class="input" id="max-hits" formControlName="maxHits" required>
+
+    </div>
+
+
+    <!-- Action -->
+
+    <div class="col-span-2 flex flex-row justify-center mt-4">
+      <h3 class="text-center text-xl">Action</h3>
+    </div>
+
+    <label class="text-right" for="endpoint">Endpoint:</label>
+    <input class="input" id="endpoint" formControlName="endpoint" required>
+
+    <label class="text-right" for="endpoint-type">Endpoint Type:</label>
+    <select class="select" id="endpoint-type" formControlName="type" required>
+      <option *ngFor="let type of actionTypes" [value]="type">
+        {{type}}
+      </option>
+    </select>
+
+  </form>
+</div>
+

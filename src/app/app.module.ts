@@ -16,6 +16,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { DetectorsComponent } from './components/detectors/detectors.component';
 import { TimespanPipe } from './pipes/timespan.pipe';
+import { DetectorDialogComponent } from './components/detector-dialog/detector-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { TimespanPipe } from './pipes/timespan.pipe';
     FilterComponent,
     DetectorsComponent,
     TimespanPipe,
+    DetectorDialogComponent,
   ],
     imports: [
         BrowserModule,
