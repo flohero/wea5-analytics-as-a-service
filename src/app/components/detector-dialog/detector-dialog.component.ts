@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {Detector} from '../../model/detector';
 import {ActionType} from "../../model/action-type";
@@ -9,6 +9,7 @@ import {DetectorType} from "../../model/detector-type";
 import {ArrayValidator} from "../../validators/array-validator";
 import {DetectorValidator} from "../../validators/detector-validator";
 import {ActionValidator} from "../../validators/action-validator";
+import {formatTimespan, parseTimespan} from "../../utils/timespan-util";
 
 @Component({
   selector: 'app-detector-dialog',
@@ -26,10 +27,13 @@ export class DetectorDialogComponent implements OnInit {
     metricName: '',
     offset: '',
     action: {
+      id: 0,
       type: '',
       endpoint: ''
     }
   }
+
+  @Output() detectorCreatedEvent: EventEmitter<Detector> = new EventEmitter<Detector>()
 
   actionTypes: Array<string> = Object.keys(ActionType)
   compareTypes: Array<string> = Object.keys(CompareType)
@@ -40,19 +44,21 @@ export class DetectorDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const interval = parseTimespan(this.detector.interval)
+    const offset = parseTimespan(this.detector.offset)
     this.detectorForm = this.formBuilder.group({
         name: [this.detector.metricName],
         interval: this.formBuilder.group({
-            hours: [undefined],
-            minutes: undefined,
-            seconds: undefined
+            hours: interval?.hours,
+            minutes: interval?.minutes,
+            seconds: interval?.seconds
           },
           {validators: timeSpanValidator}
         ),
         offset: this.formBuilder.group({
-            hours: undefined,
-            minutes: undefined,
-            seconds: undefined
+            hours: offset?.hours,
+            minutes: offset?.minutes,
+            seconds: offset?.seconds
           },
           {validators: timeSpanValidator}
         ),
@@ -89,10 +95,44 @@ export class DetectorDialogComponent implements OnInit {
   }
 
   addDetector() {
-    if(this.detectorForm.valid) {
-      console.log("Submitted")
-    } else {
-      console.log("Not submitted")
+    if (this.detectorForm.valid) {
+      const values = this.detectorForm.value
+      const detector: Detector = {
+        id: this.detector.id,
+        metricName: values.name,
+        action: {
+          id: this.detector.action.id,
+          type: values.type,
+          endpoint: values.endpoint
+        },
+        activated: values.activated,
+        interval: formatTimespan({
+          hours: values.interval.hours ?? 0,
+          minutes: values.interval.minutes ?? 0,
+          seconds: values.interval.seconds ?? 0,
+        }),
+        offset: formatTimespan({
+          hours: values.offset.hours ?? 0,
+          minutes: values.offset.minutes ?? 0,
+          seconds: values.offset.seconds ?? 0,
+        }),
+      }
+      if (this.isIntervalDetector()) {
+        detector.intervalDetector = {
+          id: this.detector.intervalDetector?.id ?? 0,
+          aggregateOperation: values.intervalDetector.aggregateOperation,
+          compareType: values.intervalDetector.compareType,
+          threshold: values.intervalDetector.threshold
+        }
+      } else {
+        detector.minMaxDetector = {
+          id: this.detector.minMaxDetector?.id ?? 0,
+          lowerThreshold: values.minMaxDetector.lowerThreshold,
+          maxHits: values.minMaxDetector.maxHits,
+          upperThreshold: values.minMaxDetector.upperThreshold
+        }
+      }
+      this.detectorCreatedEvent.emit(detector)
     }
   }
 
@@ -117,7 +157,7 @@ export class DetectorDialogComponent implements OnInit {
       errors.push('Not a valid email')
     }
     if (control.hasError('pattern')) {
-      errors.push( 'Not a valid url: "https//:analytics-as-a-service.com"')
+      errors.push('Not a valid url: "https//:analytics-as-a-service.com"')
     }
     return errors
   }

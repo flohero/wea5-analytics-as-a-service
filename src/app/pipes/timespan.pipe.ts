@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {parseTimespan, formatTimespan} from "../utils/timespan-util";
+import {parseTimespan, displayTimespan} from "../utils/timespan-util";
 
 @Pipe({
   name: 'timespan'
@@ -11,7 +11,7 @@ export class TimespanPipe implements PipeTransform {
     if(!timespan) {
       return 'Error parsing timespan'
     }
-    return formatTimespan(timespan)
+    return displayTimespan(timespan)
   }
 
 

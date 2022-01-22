@@ -23,8 +23,12 @@ export function parseTimespan(timespan: string): Timespan | null {
   }
 }
 
-export function formatTimespan(timespan: Timespan): string {
+export function displayTimespan(timespan: Timespan): string {
   return `${pad(timespan.hours)}h ${pad(timespan.minutes)}m ${pad(timespan.seconds)}s`;
+}
+
+export function formatTimespan(timespan: Timespan): string {
+  return `${pad(timespan.hours)}:${pad(timespan.minutes)}:${pad(timespan.seconds)}`;
 }
 
 function pad(val: number): string {

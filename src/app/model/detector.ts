@@ -8,7 +8,7 @@ export interface Detector {
   interval: string
   offset: string
   activated: boolean
-  lastExecuted: Date | null
+  lastExecuted?: Date | null
   action: Action
   minMaxDetector?: MinMaxDetector
   intervalDetector?: IntervalDetector

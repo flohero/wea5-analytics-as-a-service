@@ -17,6 +17,7 @@ export class ModalComponent implements OnInit {
 
   @HostListener('document:keyup.Escape')
   close() {
+    //this.el.nativeElement.classList.add('fade-out')
     this.el.nativeElement.classList.add('hidden')
   }
 }

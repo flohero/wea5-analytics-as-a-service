@@ -18,6 +18,7 @@ import { DetectorsComponent } from './components/detectors/detectors.component';
 import { TimespanPipe } from './pipes/timespan.pipe';
 import { DetectorDialogComponent } from './components/detector-dialog/detector-dialog.component';
 import { ErrorsComponent } from './components/errors/errors.component';
+import { ToastComponent } from './components/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ErrorsComponent } from './components/errors/errors.component';
     TimespanPipe,
     DetectorDialogComponent,
     ErrorsComponent,
+    ToastComponent,
   ],
     imports: [
         BrowserModule,

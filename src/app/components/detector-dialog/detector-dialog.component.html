@@ -28,7 +28,7 @@
     </div>
 
     <label class="text-right" for="activated">Activated</label>
-    <input class="checkbox" type="checkbox" id="activated" formControlName="activated" checked required>
+    <input class="checkbox" type="checkbox" id="activated" formControlName="activated" checked>
 
     <label class="text-right" for="endpoint-type">Detector Type:</label>
     <select class="select" formControlName="detectorType" required>
@@ -68,13 +68,13 @@
          *ngIf="isMinMaxDetector()">
 
       <label class="text-right" for="lower-threshold">Lower Threshold:</label>
-      <input type="number" class="input" id="lower-threshold" formControlName="lowerThreshold" required>
+      <input type="number" class="input" id="lower-threshold" formControlName="lowerThreshold">
 
       <label class="text-right" for="upper-threshold">Upper Threshold:</label>
-      <input type="number" class="input" id="upper-threshold" formControlName="upperThreshold" required>
+      <input type="number" class="input" id="upper-threshold" formControlName="upperThreshold">
 
       <label class="text-right" for="max-hits">Max Hits:</label>
-      <input type="number" class="input" id="max-hits" formControlName="maxHits" required min="1">
+      <input type="number" class="input" id="max-hits" formControlName="maxHits">
     </div>
 
 
