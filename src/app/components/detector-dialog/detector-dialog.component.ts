@@ -1,10 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {Detector} from '../../model/detector';
 import {ActionType} from "../../model/action-type";
 import {CompareType} from "../../model/compare-type";
 import {AggregateOperation} from "../../model/aggregate-operation";
 import {timeSpanValidator} from "../../validators/timespan-validator";
+import {DetectorType} from "../../model/detector-type";
+import {ArrayValidator} from "../../validators/array-validator";
+import {DetectorValidator} from "../../validators/detector-validator";
+import {ActionValidator} from "../../validators/action-validator";
 
 @Component({
   selector: 'app-detector-dialog',
@@ -19,7 +23,7 @@ export class DetectorDialogComponent implements OnInit {
     activated: false,
     interval: '',
     lastExecuted: null,
-    metricName: 'Test',
+    metricName: '',
     offset: '',
     action: {
       type: '',
@@ -28,50 +32,93 @@ export class DetectorDialogComponent implements OnInit {
   }
 
   actionTypes: Array<string> = Object.keys(ActionType)
-  compareType: Array<string> = Object.keys(CompareType)
+  compareTypes: Array<string> = Object.keys(CompareType)
   aggregateOperations: Array<string> = Object.keys(AggregateOperation)
+  detectorTypes: Array<string> = Object.keys(DetectorType)
 
-  constructor() {
+  constructor(private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
-    this.detectorForm = new FormGroup({
-      name: new FormControl(this.detector.metricName, [Validators.required]),
-      interval: new FormGroup({
-        hours: new FormControl(),
-        minutes: new FormControl(),
-        seconds: new FormControl()
-      }),
-      offset: new FormGroup({
-        hours: new FormControl(),
-        minutes: new FormControl(),
-        seconds: new FormControl()
-      }, [timeSpanValidator]),
+    this.detectorForm = this.formBuilder.group({
+        name: [this.detector.metricName],
+        interval: this.formBuilder.group({
+            hours: [undefined],
+            minutes: undefined,
+            seconds: undefined
+          },
+          {validators: timeSpanValidator}
+        ),
+        offset: this.formBuilder.group({
+            hours: undefined,
+            minutes: undefined,
+            seconds: undefined
+          },
+          {validators: timeSpanValidator}
+        ),
 
-      activated: new FormControl(this.detector.activated),
-      detectorType: new FormControl(this.detector.intervalDetector ? 'interval' : 'minmax', [Validators.required]),
-      intervalDetector: new FormGroup({
-        compareType: new FormControl(this.detector.intervalDetector?.compareType ?? ''),
-        aggregateOperation: new FormControl(this.detector.intervalDetector?.aggregateOperation ?? ''),
-        threshold: new FormControl(this.detector.intervalDetector?.threshold),
-      }),
+        activated: [this.detector.activated ?? true],
+        detectorType: [this.detector.intervalDetector ? DetectorType.Interval : DetectorType.MinMax],
 
-      minMaxDetector: new FormGroup({
-        lowerThreshold: new FormControl(this.detector.minMaxDetector?.lowerThreshold),
-        upperThreshold: new FormControl(this.detector.minMaxDetector?.upperThreshold),
-        maxHits: new FormControl(this.detector.minMaxDetector?.maxHits),
-      }),
+        intervalDetector: this.formBuilder.group({
+            compareType: [this.detector.intervalDetector?.compareType ?? ''],
+            aggregateOperation: [this.detector.intervalDetector?.aggregateOperation ?? ''],
+            threshold: [this.detector.intervalDetector?.threshold],
+          }
+        ),
 
-      endpoint: new FormControl(this.detector.action.endpoint, [Validators.required]),
-      type: new FormControl(this.detector.action.type, [Validators.required]),
-    })
+        minMaxDetector: this.formBuilder.group({
+          lowerThreshold: [this.detector.minMaxDetector?.lowerThreshold],
+          upperThreshold: [this.detector.minMaxDetector?.upperThreshold],
+          maxHits: [this.detector.minMaxDetector?.maxHits],
+        }),
+
+        endpoint: [this.detector.action.endpoint],
+        type: [this.detector.action.type, [ArrayValidator(this.actionTypes)]],
+      },
+      {validators: [DetectorValidator, ActionValidator]}
+    )
   }
 
   isIntervalDetector() {
-    return this.detectorForm.value.detectorType == 'interval'
+    return this.detectorForm.value.detectorType == DetectorType.Interval
   }
 
   isMinMaxDetector() {
-    return this.detectorForm.value.detectorType == 'minmax'
+    return this.detectorForm.value.detectorType == DetectorType.MinMax
+  }
+
+  addDetector() {
+    if(this.detectorForm.valid) {
+      console.log("Submitted")
+    } else {
+      console.log("Not submitted")
+    }
+  }
+
+  getErrorMessage(control?: AbstractControl | null): Array<string> {
+    if (!control) {
+      return [];
+    }
+    const errors: Array<string> = []
+    if (control.hasError('required')) {
+      errors.push('Field is required.')
+    }
+    if (control.hasError('timespan')) {
+      errors.push(control.getError('timespan'))
+    }
+    if (control.hasError('member')) {
+      errors.push(control.getError('member'))
+    }
+    if (control.hasError('detector')) {
+      errors.push(control.getError('detector'))
+    }
+    if (control.hasError('email')) {
+      errors.push('Not a valid email')
+    }
+    if (control.hasError('pattern')) {
+      errors.push( 'Not a valid url: "https//:analytics-as-a-service.com"')
+    }
+    return errors
   }
 }

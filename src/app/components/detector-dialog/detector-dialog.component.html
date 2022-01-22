@@ -1,15 +1,19 @@
 <div class="flex justify-center mt-4">
-  <form [formGroup]="detectorForm" class="grid grid-cols-2 gap-4 md:w-4/5">
+  <form [formGroup]="detectorForm" class="grid grid-cols-2 gap-4 md:w-4/5" (ngSubmit)="addDetector()">
     <label class="text-right" for="name">Metric Name:</label>
     <input class="input" id="name" formControlName="name" required>
+    <div app-errors [errors]="getErrorMessage(detectorForm.get('name'))" class="text-rose-600 col-span-2 text-right" >
+    </div>
 
     <label class="text-right" for="interval">Execution Interval:</label>
     <div formGroupName="interval" class="flex flex-row justify-between" id="interval">
-      <input class="w-1/5 input" formControlName="hours" placeholder="hh" type="number">
+      <input class="w-1/5 input" formControlName="hours" placeholder="hh" type="number" min="0">
       <span>:</span>
-      <input class="w-1/5 input" formControlName="minutes" placeholder="mm" type="number">
+      <input class="w-1/5 input" formControlName="minutes" placeholder="mm" type="number" min="0">
       <span>:</span>
-      <input class="w-1/5 input" formControlName="seconds" placeholder="ss" type="number">
+      <input class="w-1/5 input" formControlName="seconds" placeholder="ss" type="number" min="0">
+    </div>
+    <div app-errors [errors]="getErrorMessage(detectorForm.get('interval'))" class="text-rose-600 col-span-2 text-right">
     </div>
 
     <label class="text-right" for="offset">Offset:</label>
@@ -20,40 +24,44 @@
       <span>:</span>
       <input class="w-1/5 input" formControlName="seconds" placeholder="ss" type="number">
     </div>
+    <div app-errors [errors]="getErrorMessage(detectorForm.get('offset'))" class="text-rose-600 col-span-2 text-right">
+    </div>
 
     <label class="text-right" for="activated">Activated</label>
-    <input class="checkbox" type="checkbox" id="activated" formControlName="activated" required>
+    <input class="checkbox" type="checkbox" id="activated" formControlName="activated" checked required>
 
     <label class="text-right" for="endpoint-type">Detector Type:</label>
     <select class="select" formControlName="detectorType" required>
-      <option value="interval" selected>
-        Interval Detector
-      </option>
-      <option value="minmax">
-        Min Max Detector
+      <option *ngFor="let type of detectorTypes" value="{{type}}">
+        {{type}}
       </option>
     </select>
+    <div app-errors [errors]="getErrorMessage(detectorForm.get('detectorType'))" class="text-rose-600 col-span-2 text-right">
+    </div>
+
+    <div class="col-span-2 flex flex-row justify-center mt-4">
+      <h3 class="text-center text-xl">{{detectorForm.value.detectorType}} Detector</h3>
+    </div>
 
     <div class="grid grid-cols-2 gap-4 col-span-2" formGroupName="intervalDetector"
          *ngIf="isIntervalDetector()">
 
       <label class="text-right" for="aggregate-operation">Aggregate Operation:</label>
-      <select class="select" id="aggregate-operation" formControlName="aggregateOperation" required>
+      <select class="select" id="aggregate-operation" formControlName="aggregateOperation">
         <option *ngFor="let op of aggregateOperations" [value]="op">
           {{op}}
         </option>
       </select>
 
       <label class="text-right" for="compare-type">Compare Type:</label>
-      <select class="select" id="compare-type" formControlName="compareType" required>
-        <option *ngFor="let type of compareType" [value]="type">
+      <select class="select" id="compare-type" formControlName="compareType">
+        <option *ngFor="let type of compareTypes" [value]="type">
           {{type}}
         </option>
       </select>
 
       <label class="text-right" for="threshold">Threshold:</label>
-      <input type="number" class="input" id="threshold" formControlName="threshold" required>
-
+      <input type="number" class="input" id="threshold" formControlName="threshold">
     </div>
 
     <div class="grid grid-cols-2 gap-4 col-span-2" formGroupName="minMaxDetector"
@@ -66,8 +74,7 @@
       <input type="number" class="input" id="upper-threshold" formControlName="upperThreshold" required>
 
       <label class="text-right" for="max-hits">Max Hits:</label>
-      <input type="number" class="input" id="max-hits" formControlName="maxHits" required>
-
+      <input type="number" class="input" id="max-hits" formControlName="maxHits" required min="1">
     </div>
 
 
@@ -79,6 +86,8 @@
 
     <label class="text-right" for="endpoint">Endpoint:</label>
     <input class="input" id="endpoint" formControlName="endpoint" required>
+    <div app-errors [errors]="getErrorMessage(detectorForm.get('endpoint'))" class="text-rose-600 col-span-2 text-right">
+    </div>
 
     <label class="text-right" for="endpoint-type">Endpoint Type:</label>
     <select class="select" id="endpoint-type" formControlName="type" required>
@@ -86,7 +95,16 @@
         {{type}}
       </option>
     </select>
+    <div app-errors [errors]="getErrorMessage(detectorForm.get('type'))" class="text-rose-600 col-span-2 text-right">
+      {{ getErrorMessage(detectorForm.get('type')) }}
+    </div>
 
+    <div app-errors [errors]="getErrorMessage(detectorForm)" class="text-rose-600 col-span-2 text-right">
+    </div>
+
+    <div class="col-span-2 flex justify-center" *ngIf="detectorForm.valid">
+      <input class="button" type="submit" value="Submit" [disabled]="!detectorForm.valid">
+    </div>
   </form>
 </div>
 
