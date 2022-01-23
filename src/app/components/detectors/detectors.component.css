@@ -22,3 +22,8 @@
 .heart {
   animation: animateHeart 1.4s infinite;
 }
+
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #9333EA;
+}

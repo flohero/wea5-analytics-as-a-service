@@ -1,6 +1,6 @@
 <h1 class="text-center text-3xl">Detectors</h1>
-<div class="grid grid-cols-1 md:grid-cols-2 auto-rows-auto gap-8 mt-7">
-  <div *ngFor="let detector of detectors; index as i"
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 auto-rows-auto gap-8 mt-7">
+  <div *ngFor="let detector of detectors"
        [ngClass]="{'bg-gray-300': !detector.activated, 'border-rose-400': isHeartbeatDetector(detector)} "
        class="rounded border-2">
     <h2 class="text-2xl text-center uppercase py-2 break-words">{{detector.metricName}} Detector</h2>
@@ -40,9 +40,11 @@
         <span>Max Hits: </span>
         <span class="text-indigo-800">{{detector.minMaxDetector.maxHits}}</span>
       </div>
+      <span>Endpoint: </span>
+      <span class="text-indigo-800 break-words">{{detector.action.endpoint}}</span>
     </div>
     <div class="flex flex-row md:flex-row p-2">
-      <span class="">
+      <div class="">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 "
              [ngClass]="detector.activated ? 'heart text-rose-600' : 'text-gray-700'"
              viewBox="0 0 20 20" fill="currentColor">
@@ -50,10 +52,30 @@
                 d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
                 clip-rule="evenodd"/>
         </svg>
-      </span>
-      <span class="grow flex justify-end" *ngIf="!isHeartbeatDetector(detector)">
-        <button (click)="showUpdateDetectorModal(detector, i)">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      </div>
+
+      <div class="grow flex justify-end" *ngIf="!isHeartbeatDetector(detector)">
+        <div class="flex items-center justify-center mr-6">
+          <label
+            for="toggle-{{detector.id}}"
+            class="flex items-center cursor-pointer"
+          >
+            <!-- toggle -->
+            <div class="relative">
+              <!-- input -->
+              <input id="toggle-{{detector.id}}" type="checkbox" class="sr-only" [checked]="detector.activated" (click)="toggleDetector(detector)"/>
+              <!-- line -->
+              <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+              <!-- dot -->
+              <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+            </div>
+          </label>
+
+        </div>
+
+        <button (click)="showUpdateDetectorModal(detector)">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
           </svg>
@@ -64,9 +86,9 @@
                   d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
           </svg>
         </button>
-      </span>
+      </div>
     </div>
-    <app-modal title="Update Detector" id="update-detector-modal-{{i}}" class="hidden">
+    <app-modal title="Update Detector" id="update-detector-modal-{{detector.id}}" class="hidden">
       <app-detector-dialog (detectorCreatedEvent)="updateDetector($event)" [detector]="detector"></app-detector-dialog>
     </app-modal>
   </div>

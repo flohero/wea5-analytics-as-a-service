@@ -34,4 +34,8 @@ export class DetectorService {
   public createDetector(detector: Detector): Observable<Object> {
     return this.httpClient.post(`${environment.url}/detectors`, detector)
   }
+
+  public updateDetector(detector: Detector): Observable<Object> {
+    return this.httpClient.put(`${environment.url}/detectors`, detector)
+  }
 }

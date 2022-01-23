@@ -43,15 +43,29 @@ export class DetectorsComponent implements OnInit {
           modal?.classList.add('hidden')
         }
       )
-
   }
 
   updateDetector(detector: Detector) {
-    console.log(detector)
+    this.detectorService.updateDetector(detector)
+      .subscribe(_ => {
+          this.loadDetectors()
+          const modal = document.getElementById(`update-detector-modal-${detector.id}`)
+          modal?.classList.add('hidden')
+        }
+      )
   }
 
-  showUpdateDetectorModal(detector: Detector, id: number) {
-    const modal = document.getElementById(`update-detector-modal-${id}`)
+  toggleDetector(detector: Detector) {
+    detector.activated = !detector.activated
+    this.detectorService.updateDetector(detector)
+      .subscribe(_ => {
+          this.loadDetectors()
+        }
+      )
+  }
+
+  showUpdateDetectorModal(detector: Detector) {
+    const modal = document.getElementById(`update-detector-modal-${detector.id}`)
     modal?.classList.remove('hidden')
   }
 }
