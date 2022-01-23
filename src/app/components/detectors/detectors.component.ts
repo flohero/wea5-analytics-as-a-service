@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DetectorService} from "../../services/detector.service";
 import {Detector} from "../../model/detector";
+import {tap} from "rxjs";
 
 @Component({
   selector: 'app-detectors',
@@ -24,8 +25,8 @@ export class DetectorsComponent implements OnInit {
 
   deleteDetector(detector: Detector) {
     this.detectorService.deleteDetector(detector)
+      .pipe(tap(() => this.loadDetectors()))
       .subscribe(_ => {
-        this.loadDetectors()
       })
 
   }
@@ -37,8 +38,8 @@ export class DetectorsComponent implements OnInit {
 
   addedDetectors(detector: Detector) {
     this.detectorService.createDetector(detector)
+      .pipe(tap(() => this.loadDetectors()))
       .subscribe(_ => {
-          this.loadDetectors()
           const modal = document.getElementById('add-detector-modal')
           modal?.classList.add('hidden')
         }
@@ -47,8 +48,8 @@ export class DetectorsComponent implements OnInit {
 
   updateDetector(detector: Detector) {
     this.detectorService.updateDetector(detector)
+      .pipe(tap(() => this.loadDetectors()))
       .subscribe(_ => {
-          this.loadDetectors()
           const modal = document.getElementById(`update-detector-modal-${detector.id}`)
           modal?.classList.add('hidden')
         }
@@ -58,8 +59,8 @@ export class DetectorsComponent implements OnInit {
   toggleDetector(detector: Detector) {
     detector.activated = !detector.activated
     this.detectorService.updateDetector(detector)
+      .pipe(tap(() => this.loadDetectors()))
       .subscribe(_ => {
-          this.loadDetectors()
         }
       )
   }
