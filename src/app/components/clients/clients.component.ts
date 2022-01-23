@@ -1,0 +1,56 @@
+import {Component, OnInit} from '@angular/core';
+import {Client} from "../../model/client";
+import {ClientService} from "../../services/client.service";
+import {map} from "rxjs";
+import {ClipboardService} from "../../services/clipboard.service";
+
+@Component({
+  selector: 'app-clients',
+  templateUrl: './clients.component.html',
+  styleUrls: ['./clients.component.css']
+})
+export class ClientsComponent implements OnInit {
+
+  clients: Array<HideableClient> = []
+
+  constructor(private clientService: ClientService, private clipboardService: ClipboardService) {
+  }
+
+  ngOnInit(): void {
+    this.loadClients()
+  }
+
+  private loadClients() {
+    this.clientService.findAll()
+      .pipe(map(clients => {
+        return clients.map(client => ClientsComponent.mapClientToHideAbleClient(client))
+      }))
+      .subscribe(clients => this.clients = clients)
+  }
+
+  private static mapClientToHideAbleClient(client: Client): HideableClient {
+    const hideableClient = client as HideableClient
+    hideableClient.hidden = true
+    return hideableClient
+  }
+
+  showAppKey(entry: Client & Hideable) {
+    entry.hidden = false
+  }
+
+  hideAppKey(entry: HideableClient) {
+    entry.hidden = true
+  }
+
+  copyAppKey(entry: HideableClient) {
+    this.clipboardService.writeText(entry.appKey)
+      .subscribe(() => console.log('Copied!'))
+  }
+
+}
+
+interface Hideable {
+  hidden?: boolean
+}
+
+type HideableClient = Client & Hideable

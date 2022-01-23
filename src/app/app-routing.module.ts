@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {LogListComponent} from "./components/telemetry/log-list/log-list.component";
 import {GraphDashboardComponent} from "./components/telemetry/graph-dashboard/graph-dashboard.component";
 import {DetectorsComponent} from "./components/detectors/detectors.component";
+import {ClientsComponent} from "./components/clients/clients.component";
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: "detectors",
     component: DetectorsComponent
+  },
+  {
+    path: "clients",
+    component: ClientsComponent
   },
 ];
 
