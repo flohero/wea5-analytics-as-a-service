@@ -4,23 +4,48 @@ import {LogListComponent} from "./components/telemetry/log-list/log-list.compone
 import {GraphDashboardComponent} from "./components/telemetry/graph-dashboard/graph-dashboard.component";
 import {DetectorsComponent} from "./components/detectors/detectors.component";
 import {ClientsComponent} from "./components/clients/clients.component";
+import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import {AuthGuard} from "./guards/auth.guard";
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: 'index.html',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: 'silent-refresh.html',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  {
     path: "graphs",
-    component: GraphDashboardComponent
+    component: GraphDashboardComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "logs",
-    component: LogListComponent
+    component: LogListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "detectors",
-    component: DetectorsComponent
+    component: DetectorsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "clients",
-    component: ClientsComponent
+    component: ClientsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "dashboard",
+    component: DashboardComponent,
   },
 ];
 

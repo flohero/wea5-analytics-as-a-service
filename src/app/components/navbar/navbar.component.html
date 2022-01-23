@@ -26,5 +26,11 @@ text-right
     <li class="navbar__item link-animation">
       <a routerLink="/clients">Clients</a>
     </li>
+    <li class="navbar__item grow">
+      <div>
+        <button *ngIf="!loggedIn()" class="button text-base" (click)="login()">Login</button>
+        <button *ngIf="loggedIn()" class="button text-base" (click)="logout()">Logout</button>
+      </div>
+    </li>
   </ul>
 </nav>

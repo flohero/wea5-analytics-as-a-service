@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class DashboardComponent implements OnInit {
 
   constructor(private auth: AuthService) { }
 
@@ -24,5 +24,4 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.auth.logout()
   }
-
 }

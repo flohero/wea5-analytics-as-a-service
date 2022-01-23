@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  url: "http://localhost:5000"
+  url: "http://localhost:5000",
+  oauthUrl: 'http://localhost:8080',
+  realmName: 'aaas'
 };
 
 /*
