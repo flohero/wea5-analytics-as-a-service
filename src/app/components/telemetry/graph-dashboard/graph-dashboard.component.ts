@@ -9,8 +9,8 @@ import {MetricService} from "../../../services/metric.service";
 })
 export class GraphDashboardComponent implements OnInit {
 
-  private readonly graphModalId = 'graph-modal';
   charts: Array<TelemetryFilter>
+  private readonly graphModalId = 'graph-modal';
 
   constructor(private metricService: MetricService) {
   }

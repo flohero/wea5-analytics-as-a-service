@@ -4,7 +4,7 @@ export function parseTimespan(timespan: string): Timespan | null {
   const daysEnd = timespan.indexOf('.')
 
   const time = timespan.substring(daysEnd + 1).split(':')
-  if(time.length < 3) {
+  if (time.length < 3) {
     return null
   }
 
@@ -12,7 +12,7 @@ export function parseTimespan(timespan: string): Timespan | null {
   const minutes = parseInt(time[1])
   const seconds = parseInt(time[2])
 
-  if(daysEnd > 0) {
+  if (daysEnd > 0) {
     const days = parseInt(timespan.substring(0, daysEnd))
     hours += days * 24
   }

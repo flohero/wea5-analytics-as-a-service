@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LogListEntryComponent } from './log-list-entry.component';
+import {LogListEntryComponent} from './log-list-entry.component';
 
 describe('LogListEntryComponent', () => {
   let component: LogListEntryComponent;
@@ -8,9 +8,9 @@ describe('LogListEntryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LogListEntryComponent ]
+      declarations: [LogListEntryComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

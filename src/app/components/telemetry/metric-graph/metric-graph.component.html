@@ -1,12 +1,12 @@
 <div>
-  <canvas baseChart
-          [datasets]="data"
+  <canvas [datasets]="data"
           [labels]="labels"
-          [options]="chartOptions"
           [legend]="legend"
+          [options]="chartOptions"
           [type]="chartType"
-          height="500"
+          baseChart
           class="max-w-full"
+          height="500"
   >
   </canvas>
 </div>

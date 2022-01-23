@@ -5,8 +5,8 @@
        class="rounded border-2">
     <h2 class="text-2xl text-center uppercase py-2 break-words">{{detector.metricName}} Detector</h2>
 
-    <div class="grid grid-cols-2 gap-2 md:gap-4 px-4 md:px-8 py-4 border-b-2 border-t-2"
-         [ngClass]="isHeartbeatDetector(detector) ? 'border-rose-300' : 'border-indigo-400'">
+    <div [ngClass]="isHeartbeatDetector(detector) ? 'border-rose-300' : 'border-indigo-400'"
+         class="grid grid-cols-2 gap-2 md:gap-4 px-4 md:px-8 py-4 border-b-2 border-t-2">
       <span>Metric Name: </span>
       <span class="text-indigo-800 break-words">{{detector.metricName}}</span>
 
@@ -19,7 +19,7 @@
       <span>Last Executed: </span>
       <span class="text-indigo-800">{{detector.lastExecuted | date: 'yyyy-MM-dd hh:mm'}}</span>
 
-      <div class="grid grid-cols-2 gap-4 col-span-2 w-full" *ngIf="detector.intervalDetector">
+      <div *ngIf="detector.intervalDetector" class="grid grid-cols-2 gap-4 col-span-2 w-full">
         <span>Aggregate Operation: </span>
         <span class="text-indigo-800">{{detector.intervalDetector.aggregateOperation}}</span>
 
@@ -30,7 +30,7 @@
         <span class="text-indigo-800">{{detector.intervalDetector.threshold}}</span>
       </div>
 
-      <div class="grid grid-cols-2 gap-4 col-span-2 w-full" *ngIf="detector.minMaxDetector">
+      <div *ngIf="detector.minMaxDetector" class="grid grid-cols-2 gap-4 col-span-2 w-full">
         <span>Lower Threshold: </span>
         <span class="text-indigo-800">{{detector.minMaxDetector.lowerThreshold}}</span>
 
@@ -45,25 +45,26 @@
     </div>
     <div class="flex flex-row md:flex-row p-2">
       <div class="">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 "
-             [ngClass]="detector.activated ? 'heart text-rose-600' : 'text-gray-700'"
-             viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd"
+        <svg [ngClass]="detector.activated ? 'heart text-rose-600' : 'text-gray-700'" class="h-7 w-7 "
+             fill="currentColor"
+             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path clip-rule="evenodd"
                 d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                clip-rule="evenodd"/>
+                fill-rule="evenodd"/>
         </svg>
       </div>
 
-      <div class="grow flex justify-end" *ngIf="!isHeartbeatDetector(detector)">
+      <div *ngIf="!isHeartbeatDetector(detector)" class="grow flex justify-end">
         <div class="flex items-center justify-center mr-6">
           <label
-            for="toggle-{{detector.id}}"
             class="flex items-center cursor-pointer"
+            for="toggle-{{detector.id}}"
           >
             <!-- toggle -->
             <div class="relative">
               <!-- input -->
-              <input id="toggle-{{detector.id}}" type="checkbox" class="sr-only" [checked]="detector.activated" (click)="toggleDetector(detector)"/>
+              <input (click)="toggleDetector(detector)" [checked]="detector.activated" class="sr-only" id="toggle-{{detector.id}}"
+                     type="checkbox"/>
               <!-- line -->
               <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
               <!-- dot -->
@@ -74,30 +75,30 @@
         </div>
 
         <button (click)="showUpdateDetectorModal(detector)">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4" fill="none" viewBox="0 0 24 24"
-               stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+          <svg class="h-6 w-6 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+               xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="2"/>
           </svg>
         </button>
         <button (click)="deleteDetector(detector)">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="2"/>
           </svg>
         </button>
       </div>
     </div>
-    <app-modal title="Update Detector" id="update-detector-modal-{{detector.id}}" class="hidden">
+    <app-modal class="hidden" id="update-detector-modal-{{detector.id}}" title="Update Detector">
       <app-detector-dialog (detectorCreatedEvent)="updateDetector($event)" [detector]="detector"></app-detector-dialog>
     </app-modal>
   </div>
 </div>
 
 <div class="flex justify-start mt-2">
-  <button class="button" (click)="addDetector()">Create Client</button>
+  <button (click)="addDetector()" class="button">Create Client</button>
 </div>
 
-<app-modal title="Add Detector" class="hidden" id="add-detector-modal">
+<app-modal class="hidden" id="add-detector-modal" title="Add Detector">
   <app-detector-dialog (detectorCreatedEvent)="addedDetectors($event)"></app-detector-dialog>
 </app-modal>

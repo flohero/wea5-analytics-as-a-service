@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { MetricGraphComponent } from './metric-graph.component';
+import {MetricGraphComponent} from './metric-graph.component';
 
 describe('MetricGraphComponent', () => {
   let component: MetricGraphComponent;
@@ -8,9 +8,9 @@ describe('MetricGraphComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MetricGraphComponent ]
+      declarations: [MetricGraphComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

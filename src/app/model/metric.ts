@@ -1,9 +1,9 @@
 export interface Metric {
   id: number
   name: string
-  createdAt:	Date
+  createdAt: Date
   instanceId: string
-  type:	string
+  type: string
   value: number
   start: Date | null
   end: Date | null

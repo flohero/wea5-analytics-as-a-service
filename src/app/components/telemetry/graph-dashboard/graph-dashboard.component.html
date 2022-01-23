@@ -7,23 +7,23 @@
       <div class="grow"></div>
       <div class="mr-2 grow-0">
         <button (click)="editGraph(i)" class="mr-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="2"/>
           </svg>
         </button>
         <button (click)="removeGraph(i)">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-               stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+               xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
           </svg>
         </button>
       </div>
     </div>
     <app-metric-graph [metricFilter]="chart"></app-metric-graph>
-    <app-modal title="Graph Details" id="graph-details-{{i}}" class="hidden">
-      <app-graph-dialog class="max-h-full" [defaultChart]="charts[i]"
-                        addButtonText="Update This Graph" (newGraphEvent)="updateGraph($event, i)"></app-graph-dialog>
+    <app-modal class="hidden" id="graph-details-{{i}}" title="Graph Details">
+      <app-graph-dialog (newGraphEvent)="updateGraph($event, i)" [defaultChart]="charts[i]"
+                        addButtonText="Update This Graph" class="max-h-full"></app-graph-dialog>
     </app-modal>
   </div>
   <div *ngIf="charts.length == 0" class="col-span-2 my-8 h-full">
@@ -32,9 +32,9 @@
   </div>
 </div>
 <div class="flex flex-row mt-4">
-  <button class="button" (click)="showModal()">Add Graph</button>
+  <button (click)="showModal()" class="button">Add Graph</button>
 </div>
-<app-modal title="Add Graph" id="graph-modal" class="hidden">
-  <app-graph-dialog class="max-h-full" (newGraphEvent)="addGraph($event)"
-                    addButtonText="Add This Graph"></app-graph-dialog>
+<app-modal class="hidden" id="graph-modal" title="Add Graph">
+  <app-graph-dialog (newGraphEvent)="addGraph($event)" addButtonText="Add This Graph"
+                    class="max-h-full"></app-graph-dialog>
 </app-modal>

@@ -9,7 +9,8 @@ export class ErrorsComponent implements OnInit {
 
   @Input() errors: Array<string> = []
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

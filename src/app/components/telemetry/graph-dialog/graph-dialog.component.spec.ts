@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { GraphDialogComponent } from './graph-dialog.component';
+import {GraphDialogComponent} from './graph-dialog.component';
 
 describe('GraphDialogComponent', () => {
   let component: GraphDialogComponent;
@@ -8,9 +8,9 @@ describe('GraphDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GraphDialogComponent ]
+      declarations: [GraphDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

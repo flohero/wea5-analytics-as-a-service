@@ -9,6 +9,7 @@ import {Log} from "../../../model/log";
 export class LogListEntryComponent implements OnInit {
 
   @Input() log: Log;
+
   constructor() {
   }
 

@@ -1,4 +1,4 @@
-import { AuthConfig } from 'angular-oauth2-oidc';
+import {AuthConfig} from 'angular-oauth2-oidc';
 import {environment} from "../environments/environment";
 
 // INTROSPECTION
@@ -19,7 +19,7 @@ export const authConfig: AuthConfig = {
   silentRefreshTimeout: 5000, // For faster testing
   timeoutFactor: 0.25, // For faster testing
   sessionChecksEnabled: true,
-  showDebugInformation: true, // Also requires enabling "Verbose" level in devtools
+  showDebugInformation: false, // Also requires enabling "Verbose" level in devtools
   clearHashAfterLogin: false,
   requireHttps: false
 };

@@ -2,8 +2,8 @@
   {{log.name}}
 </div>
 <div class="list-entry">
-  <div class="w-1/4 md:w-1/2 rounded-md font-bold m-auto"
-       [ngClass]="{ 'bg-gray-300' : log.type == 'Trace', 'bg-orange-500' : log.type == 'Warning', 'bg-rose-500' : log.type == 'Error'}">
+  <div [ngClass]="{ 'bg-gray-300' : log.type == 'Trace', 'bg-orange-500' : log.type == 'Warning', 'bg-rose-500' : log.type == 'Error'}"
+       class="w-1/4 md:w-1/2 rounded-md font-bold m-auto">
     {{log.type}}
   </div>
 </div>

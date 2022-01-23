@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {OAuthService} from "angular-oauth2-oidc";
 
 @Injectable({
@@ -6,7 +6,8 @@ import {OAuthService} from "angular-oauth2-oidc";
 })
 export class AuthService {
 
-  constructor(private oauthService: OAuthService) { }
+  constructor(private oauthService: OAuthService) {
+  }
 
   login(): boolean {
     this.oauthService.initImplicitFlow()

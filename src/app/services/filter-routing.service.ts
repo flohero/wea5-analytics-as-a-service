@@ -39,8 +39,8 @@ export class FilterRoutingService {
         type: params['type'] ?? '',
         from: params['from'] ?? '',
         to: params['to'] ?? '',
-        page: parseInt(params['page'] ?? 0) ,
-        count: parseInt(params['count']?? 100),
+        page: parseInt(params['page'] ?? 0),
+        count: parseInt(params['count'] ?? 100),
         instance: params['instance'] ?? '',
       }
       return filter

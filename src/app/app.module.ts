@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -23,6 +23,9 @@ import {ClientsComponent} from './components/clients/clients.component';
 import {ReplacementPipe} from './pipes/replacement.pipe';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {OAuthModule} from "angular-oauth2-oidc";
+import {LoaderComponent} from './components/loader/loader.component';
+import {LoaderService} from "./services/loader.service";
+import {LoaderInterceptor} from "./interceptors/loader.interceptor";
 
 @NgModule({
   declarations: [
@@ -43,6 +46,7 @@ import {OAuthModule} from "angular-oauth2-oidc";
     ClientsComponent,
     ReplacementPipe,
     DashboardComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,10 @@ import {OAuthModule} from "angular-oauth2-oidc";
     NgChartsModule,
     OAuthModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    LoaderService,
+    {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

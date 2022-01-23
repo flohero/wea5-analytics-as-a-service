@@ -1,27 +1,27 @@
-<form [formGroup]="filterForm" (ngSubmit)="submit()" (keydown.enter)="$event.preventDefault()"
+<form (keydown.enter)="$event.preventDefault()" (ngSubmit)="submit()" [formGroup]="filterForm"
       class="form-filter flex flex-col  mx-auto">
   <div class="flex flex-col md:flex-row flex-wrap w-full md:mx-10">
-    <div class="flex block m-1 flex-col w-full" *ngIf="!useSearch">
+    <div *ngIf="!useSearch" class="flex block m-1 flex-col w-full">
       <div class="flex block">
-        <label for="names" class="input-label__label">Metric Names: </label>
-        <input name="names"
-               type="text"
-               class="input input-label__input"
+        <label class="input-label__label" for="names">Metric Names: </label>
+        <input (keydown.backspace)="removeNameByBackspace()"
                (keydown.enter)="addName()"
-               (keydown.backspace)="removeNameByBackspace()"
+               autofocus
+               class="input input-label__input"
                formControlName="names"
                list="names"
-               autofocus>
+               name="names"
+               type="text">
       </div>
       <div class="flex flex-wrap text-indigo-700 pb-4 grow">
-      <span class="chip mr-3 my-1" *ngFor="let name of names; index as i">
+      <span *ngFor="let name of names; index as i" class="chip mr-3 my-1">
           {{name}}
         <button
-          class="cursor-pointer ml-1 my-auto hover:text-white rounded-full hover:bg-indigo-400 w-6 h-6 text-center"
-          (click)="removeName(i)">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-4 m-auto" fill="none" viewBox="0 0 24 24"
-                 stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
+          (click)="removeName(i)"
+          class="cursor-pointer ml-1 my-auto hover:text-white rounded-full hover:bg-indigo-400 w-6 h-6 text-center">
+            <svg class="h-3 w-4 m-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 12H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
             </svg>
           </button>
         </span>
@@ -29,15 +29,15 @@
       <hr/>
     </div>
 
-    <div class="input-label" *ngIf="useSearch">
-      <label for="name" class="input-label__label">Name: </label>
-      <input type="text"
+    <div *ngIf="useSearch" class="input-label">
+      <label class="input-label__label" for="name">Name: </label>
+      <input class="input input-label__input"
              formControlName="name"
-             name="name"
-             class="input input-label__input"
              id="name"
              list="names"
-             placeholder="Name">
+             name="name"
+             placeholder="Name"
+             type="text">
     </div>
 
     <datalist id="names">
@@ -45,55 +45,55 @@
     </datalist>
 
     <div class="input-label">
-      <label for="instance" class="input-label__label">Instance: </label>
-      <input type="text"
+      <label class="input-label__label" for="instance">Instance: </label>
+      <input class="input input-label__input"
              formControlName="instance"
-             name="instance"
-             class="input input-label__input"
              id="instance"
              list="instances"
-             placeholder="Instance">
+             name="instance"
+             placeholder="Instance"
+             type="text">
       <datalist id="instances">
         <option *ngFor="let instance of instances">{{instance}}</option>
       </datalist>
     </div>
 
     <div class="input-label">
-      <label for="type" class="input-label__label">Type: </label>
-      <select type="number"
+      <label class="input-label__label" for="type">Type: </label>
+      <select class="select input-label__input"
               formControlName="type"
+              id="type"
               name="count"
-              class="select input-label__input"
-              id="type">
+              type="number">
         <option *ngFor="let type of types" value="{{type}}">{{type}}</option>
-        <option value="" selected>None</option>
+        <option selected value="">None</option>
       </select>
     </div>
 
     <div class="input-label">
-      <label for="from" class="input-label__label">From: </label>
-      <input type="datetime-local"
+      <label class="input-label__label" for="from">From: </label>
+      <input class="input input-label__input text-black"
              formControlName="from"
-             class="input input-label__input text-black"
              id="from"
+             type="datetime-local"
       >
     </div>
     <div class="input-label">
-      <label for="to" class="input-label__label">To: </label>
-      <input type="datetime-local"
+      <label class="input-label__label" for="to">To: </label>
+      <input class="input input-label__input"
              formControlName="to"
-             name="to"
-             class="input input-label__input"
              id="to"
+             name="to"
+             type="datetime-local"
       >
     </div>
-    <div class="input-label" *ngIf="showCount">
-      <label for="count" class="input-label__label">Count: </label>
-      <select type="number"
-              name="count"
+    <div *ngIf="showCount" class="input-label">
+      <label class="input-label__label" for="count">Count: </label>
+      <select class="select"
               formControlName="count"
               id="count"
-              class="select">
+              name="count"
+              type="number">
         <option value="25">25</option>
         <option value="50">50</option>
         <option value="100">100</option>

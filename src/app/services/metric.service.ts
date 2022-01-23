@@ -41,7 +41,7 @@ export class MetricService {
 
   public groupByName(data: Array<Metric>): NameToValueMapping {
     return data.reduce<NameToValueMapping>((rv, x) => {
-      (rv[x.name] = rv[x.name] || []).push({ value: x.value, createdAt: x.createdAt });
+      (rv[x.name] = rv[x.name] || []).push({value: x.value, createdAt: x.createdAt});
       return rv;
     }, {});
   }

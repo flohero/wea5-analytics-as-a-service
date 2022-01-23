@@ -22,22 +22,14 @@ export class ClientsComponent implements OnInit {
   constructor(private clientService: ClientService, private clipboardService: ClipboardService) {
   }
 
-  ngOnInit(): void {
-    this.loadClients()
-  }
-
-  private loadClients() {
-    this.clientService.findAll()
-      .pipe(map(clients => {
-        return clients.map(client => ClientsComponent.mapClientToHideAbleClient(client))
-      }))
-      .subscribe(clients => this.clients = clients)
-  }
-
   private static mapClientToHideAbleClient(client: Client): HideableClient {
     const hideableClient = client as HideableClient
     hideableClient.hidden = true
     return hideableClient
+  }
+
+  ngOnInit(): void {
+    this.loadClients()
   }
 
   showAppKey(entry: HideableClient) {
@@ -62,5 +54,13 @@ export class ClientsComponent implements OnInit {
         const modal = document.getElementById('client-modal')
         modal?.classList.remove('hidden')
       })
+  }
+
+  private loadClients() {
+    this.clientService.findAll()
+      .pipe(map(clients => {
+        return clients.map(client => ClientsComponent.mapClientToHideAbleClient(client))
+      }))
+      .subscribe(clients => this.clients = clients)
   }
 }

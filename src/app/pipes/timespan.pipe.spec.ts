@@ -1,4 +1,4 @@
-import { TimespanPipe } from './timespan.pipe';
+import {TimespanPipe} from './timespan.pipe';
 
 describe('TimespanPipe', () => {
   it('create an instance', () => {

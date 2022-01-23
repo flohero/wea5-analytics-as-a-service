@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { FilterRoutingService } from './filter-routing.service';
+import {FilterRoutingService} from './filter-routing.service';
 
 describe('FilterRoutingService', () => {
   let service: FilterRoutingService;

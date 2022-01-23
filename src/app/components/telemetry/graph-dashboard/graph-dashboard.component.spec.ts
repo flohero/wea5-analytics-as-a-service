@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { GraphDashboardComponent } from './graph-dashboard.component';
+import {GraphDashboardComponent} from './graph-dashboard.component';
 
 describe('GraphDashboardComponent', () => {
   let component: GraphDashboardComponent;
@@ -8,9 +8,9 @@ describe('GraphDashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GraphDashboardComponent ]
+      declarations: [GraphDashboardComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

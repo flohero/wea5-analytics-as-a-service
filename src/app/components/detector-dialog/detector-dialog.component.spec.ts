@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DetectorDialogComponent } from './detector-dialog.component';
+import {DetectorDialogComponent} from './detector-dialog.component';
 
 describe('DetectorDialogComponent', () => {
   let component: DetectorDialogComponent;
@@ -8,9 +8,9 @@ describe('DetectorDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DetectorDialogComponent ]
+      declarations: [DetectorDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
