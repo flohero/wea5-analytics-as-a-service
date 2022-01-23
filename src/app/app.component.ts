@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
-import {JwksValidationHandler, OAuthService} from "angular-oauth2-oidc";
-import {authConfig} from "./auth.config";
+import {AuthService} from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +9,8 @@ import {authConfig} from "./auth.config";
 export class AppComponent {
   title = 'analytics-as-a-service';
 
-  constructor(private oauthService: OAuthService) {
-    this.configureWithNewConfigApi();
-  }
-
-  private configureWithNewConfigApi() {
-    this.oauthService.configure(authConfig)
-    this.oauthService.tokenValidationHandler = new JwksValidationHandler()
-    this.oauthService.loadDiscoveryDocumentAndTryLogin()
-      .then()
+  constructor(private authService: AuthService) {
+    this.authService.configure()
   }
 
 }

@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LogListComponent} from "./components/telemetry/log-list/log-list.component";
-import {GraphDashboardComponent} from "./components/telemetry/graph-dashboard/graph-dashboard.component";
-import {DetectorsComponent} from "./components/detectors/detectors.component";
-import {ClientsComponent} from "./components/clients/clients.component";
-import {DashboardComponent} from "./components/dashboard/dashboard.component";
-import {AuthGuard} from "./guards/auth.guard";
+import {LogListComponent} from './components/telemetry/log-list/log-list.component';
+import {GraphDashboardComponent} from './components/telemetry/graph-dashboard/graph-dashboard.component';
+import {DetectorsComponent} from './components/detectors/detectors.component';
+import {ClientsComponent} from './components/clients/clients.component';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {AuthGuard} from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -24,27 +24,27 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: "graphs",
+    path: 'graphs',
     component: GraphDashboardComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: "logs",
+    path: 'logs',
     component: LogListComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: "detectors",
+    path: 'detectors',
     component: DetectorsComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: "clients",
+    path: 'clients',
     component: ClientsComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: "dashboard",
+    path: 'dashboard',
     component: DashboardComponent,
   },
 ];

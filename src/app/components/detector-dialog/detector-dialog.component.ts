@@ -132,6 +132,7 @@ export class DetectorDialogComponent implements OnInit {
           upperThreshold: values.minMaxDetector.upperThreshold
         }
       }
+      this.detectorForm.reset(undefined)
       this.detectorCreatedEvent.emit(detector)
     }
   }

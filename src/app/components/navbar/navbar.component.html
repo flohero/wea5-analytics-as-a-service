@@ -9,8 +9,6 @@ py-3
 px-3
 bg-white
 text-right
-flex
-flex-row
 ">
   <ul class="navbar">
     <li class="navbar__item link-animation">
@@ -28,9 +26,9 @@ flex-row
     <li class="navbar__item link-animation" *ngIf="loggedIn()">
       <a routerLink="/clients">Clients</a>
     </li>
+    <li class="navbar__item grow">
+      <button (click)="login()" *ngIf="!loggedIn()" class="button text-base">Login</button>
+      <button (click)="logout()" *ngIf="loggedIn()" class="button text-base">Logout</button>
+    </li>
   </ul>
-  <div class="grow">
-    <button (click)="login()" *ngIf="!loggedIn()" class="button text-base">Login</button>
-    <button (click)="logout()" *ngIf="loggedIn()" class="button text-base">Logout</button>
-  </div>
 </nav>
