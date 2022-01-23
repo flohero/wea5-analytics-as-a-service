@@ -93,6 +93,11 @@
     </app-modal>
   </div>
 </div>
+
+<div class="flex justify-start mt-2">
+  <button class="button" (click)="addDetector()">Create Client</button>
+</div>
+
 <app-modal title="Add Detector" class="hidden" id="add-detector-modal">
   <app-detector-dialog (detectorCreatedEvent)="addedDetectors($event)"></app-detector-dialog>
 </app-modal>

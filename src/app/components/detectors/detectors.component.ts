@@ -60,13 +60,16 @@ export class DetectorsComponent implements OnInit {
     detector.activated = !detector.activated
     this.detectorService.updateDetector(detector)
       .pipe(tap(() => this.loadDetectors()))
-      .subscribe(_ => {
-        }
-      )
+      .subscribe()
   }
 
   showUpdateDetectorModal(detector: Detector) {
     const modal = document.getElementById(`update-detector-modal-${detector.id}`)
+    modal?.classList.remove('hidden')
+  }
+
+  addDetector() {
+    const modal = document.getElementById('add-detector-modal')
     modal?.classList.remove('hidden')
   }
 }
