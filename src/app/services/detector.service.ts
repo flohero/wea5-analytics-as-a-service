@@ -26,7 +26,6 @@ export class DetectorService {
     }
     return this.httpClient.delete<Object>(`${environment.url}/detectors/${detector.id}`)
       .pipe(map(res => {
-        console.log(res)
         return res
       }))
   }

@@ -1,1 +1,6 @@
-<p>toast works!</p>
+<div class="fixed z-20 bottom-2 w-full flex flex-row justify-center h-16 mb-8" *ngIf="toast">
+  <div class="p-4 w-2/5 rounded-2xl text-center text-black font-bold"
+       [ngClass]="{'bg-emerald-500': toast.type == 2, 'bg-ember-400': toast.type == 1, 'bg-rose-600': toast.type == 0}">
+    {{toast.message}}
+  </div>
+</div>

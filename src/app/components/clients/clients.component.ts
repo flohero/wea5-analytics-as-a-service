@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Client} from "../../model/client";
-import {ClientService} from "../../services/client.service";
-import {map} from "rxjs";
-import {ClipboardService} from "../../services/clipboard.service";
-import {HideableClient} from "../../model/hideable-client";
+import {Client} from '../../model/client';
+import {ClientService} from '../../services/client.service';
+import {catchError, map, of} from 'rxjs';
+import {ClipboardService} from '../../services/clipboard.service';
+import {HideableClient} from '../../model/hideable-client';
+import {ToastService} from '../../services/toast.service';
 
 @Component({
   selector: 'app-clients',
@@ -19,7 +20,9 @@ export class ClientsComponent implements OnInit {
     hidden: true
   };
 
-  constructor(private clientService: ClientService, private clipboardService: ClipboardService) {
+  constructor(private clientService: ClientService,
+              private clipboardService: ClipboardService,
+              private toastService: ToastService) {
   }
 
   private static mapClientToHideAbleClient(client: Client): HideableClient {
@@ -47,8 +50,13 @@ export class ClientsComponent implements OnInit {
 
   createClient() {
     this.clientService.createClient()
-      .pipe(map(client => client as HideableClient))
+      .pipe(map(client => client as HideableClient),
+        catchError(() => {
+          this.toastService.sendError('Could not add client')
+          return of(null)
+        }))
       .subscribe(client => {
+        if (!client) return
         this.newClient = client
         this.newClient.hidden = true
         const modal = document.getElementById('client-modal')
