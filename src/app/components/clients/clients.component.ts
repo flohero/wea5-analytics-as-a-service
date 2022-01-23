@@ -3,6 +3,7 @@ import {Client} from "../../model/client";
 import {ClientService} from "../../services/client.service";
 import {map} from "rxjs";
 import {ClipboardService} from "../../services/clipboard.service";
+import {HideableClient} from "../../model/hideable-client";
 
 @Component({
   selector: 'app-clients',
@@ -12,6 +13,11 @@ import {ClipboardService} from "../../services/clipboard.service";
 export class ClientsComponent implements OnInit {
 
   clients: Array<HideableClient> = []
+  newClient: HideableClient = {
+    id: 0,
+    appKey: '',
+    hidden: true
+  };
 
   constructor(private clientService: ClientService, private clipboardService: ClipboardService) {
   }
@@ -34,7 +40,7 @@ export class ClientsComponent implements OnInit {
     return hideableClient
   }
 
-  showAppKey(entry: Client & Hideable) {
+  showAppKey(entry: HideableClient) {
     entry.hidden = false
   }
 
@@ -44,13 +50,17 @@ export class ClientsComponent implements OnInit {
 
   copyAppKey(entry: HideableClient) {
     this.clipboardService.writeText(entry.appKey)
-      .subscribe(() => console.log('Copied!'))
+      .subscribe()
   }
 
+  createClient() {
+    this.clientService.createClient()
+      .pipe(map(client => client as HideableClient))
+      .subscribe(client => {
+        this.newClient = client
+        this.newClient.hidden = true
+        const modal = document.getElementById('client-modal')
+        modal?.classList.remove('hidden')
+      })
+  }
 }
-
-interface Hideable {
-  hidden?: boolean
-}
-
-type HideableClient = Client & Hideable
