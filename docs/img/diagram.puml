@@ -1,0 +1,75 @@
+@startuml
+'https://plantuml.com/class-diagram
+!theme plain
+entity client {
+    * id: bigint <<PK>> <<generated>>
+    * appkey: varchar[36]
+}
+
+entity instance {
+    * id: bigint <<PK>> <<generated>>
+    * instance_id: varchar[36] <<unique>>
+    * client_id: bigint <<FK>>
+}
+
+entity metric {
+    * id: bigint <<PK>> <<generated>>
+    * type: tinyint
+    * name: varchar[255]
+    * value: decimal[15,10]
+    * created_at: datetime
+    start: datetime <<Nullable>>
+    end: datetime <<Nullable>>
+    * instance_id: bigint <<FK>>
+}
+
+entity log {
+    * id: bigint <<PK>> <<generated>>
+    * type: tinyint
+    * name: varchar[255]
+    * message: text
+    * created_at: datetime
+    * instance_id: bigint <<FK>>
+}
+
+entity action {
+    * id: bigint <<PK>><<generated>>
+    * type: tinyint
+    * endpoint: varchar [255]
+}
+
+entity detector {
+    * id: bigint <<PK>><<generated>>
+    * action_id: bigint <<FK>>
+    * metric_name: varchar[255]
+    * interval: time
+    * activated: boolean
+    * last_executed: datetime
+    * offset: time
+    min_max_detector_id: bigint <<FK>><<Nullable>>
+    interval_detector_id: bigint <<FK>><<Nullable>>
+}
+
+entity min_max_detector {
+    * id: bigint <<PK>><<generated>>
+    * lower_threshold: decimal[15,10]
+    * upper_threshold: decimal[15,10]
+    * max_hits: int
+}
+
+entity interval_detector {
+    * id: bigint <<PK>><<generated>>
+    * compare_type: tinyint
+    * aggregate_operation: tinyint
+    * threshold: decimal[15,10]
+}
+
+client ||--o{ instance
+instance ||--o{ log
+instance ||--o{ metric
+
+action ||--o{ detector
+min_max_detector |o--o{ detector
+interval_detector |o--o{ detector
+
+@enduml

@@ -74,6 +74,18 @@ AaaS.Web/src/app
 end legend
 ----
 
+.Model
+[plantuml]
+----
+include::./img/diagram.puml[]
+----
+
+.Components
+[plantuml]
+----
+include::./img/components.puml[]
+----
+
 Nachdem Tailwind benutzt wurde, sind einige Standard-Komponenten wie bei angular-material nicht verfügbar.
 Da ich allerdings schon einige Erfahrung mit Angular hatte, wollte ich auch was zusätzlich neues ausprobieren.
 Daher gibt es eigene Implementierungen für Modals und Toasts.

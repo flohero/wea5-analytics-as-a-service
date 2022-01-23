@@ -1,0 +1,58 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class AppComponent
+
+AppComponent -- NavbarComponent
+
+LoaderInterceptor -- LoaderService
+
+AppComponent -- DetectorsComponent
+
+AppComponent -- ClientsComponent
+
+AppComponent -- GraphDashboardComponent
+
+AppComponent -- LogListComponent
+
+AppComponent -- ToastComponent
+
+ToastComponent -- ToastService
+
+AppComponent -- LoaderComponent
+
+LoaderComponent -- LoaderService
+
+LogListComponent -- FilterComponent
+
+LogListComponent -- LogService
+
+GraphDashboardComponent -- GraphDialogComponent
+
+GraphDashboardComponent -- MetricGraphComponent
+
+GraphDialogComponent -- MetricGraphComponent
+
+GraphDashboardComponent -- MetricService
+
+GraphDashboardComponent -- ModalComponent
+
+GraphDialogComponent -- FilterComponent
+
+MetricService -- StorageService
+
+ClientsComponent -- ClientService
+
+ClientsComponent -- ModalComponent
+
+DetectorsComponent -- DetectorService
+
+DetectorsComponent -- ModalComponent
+
+DetectorsComponent -- DetectorsDialogComponent
+
+
+
+hide members
+
+@enduml
