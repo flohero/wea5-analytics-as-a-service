@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {TelemetryFilter} from "../../model/telemetry-filter";
+import {FormControl, FormGroup} from '@angular/forms';
+import {TelemetryFilter} from '../../model/telemetry-filter';
+import {debounceTime, distinctUntilChanged, tap} from 'rxjs';
 
 @Component({
   selector: 'app-filter',
@@ -45,9 +46,17 @@ export class FilterComponent implements OnInit {
       instance: new FormControl(this.defaultFilter.instance),
       count: new FormControl(this.defaultFilter.count)
     });
-    if (!this.useSearch) {
-      this.filterForm.valueChanges.subscribe(() => this.submit())
-    }
+    this.filterForm.valueChanges
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+        tap(value => {
+          if(value.names.length != 0) {
+            value.names != '' && this.names.push(value.names)
+          }
+        }),
+      )
+      .subscribe(() => this.submit())
 
   }
 
